@@ -1,0 +1,12 @@
+# Site settings
+title:SleepyDonut
+email:evanmalmud@gmail.com
+description: > # this means to ignore newlines until "baseurl:"
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://sleepydonut.com" # the base hostname & protocol for your site
+
+twitter_username:EvanMalmud
+github_username:evanmalmud
+
+# Build settings
+markdown: kramdown
