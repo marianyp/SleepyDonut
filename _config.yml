@@ -1,13 +1,23 @@
 # Site settings
 title: SleepyDonut
-email: evanmalmud@gmail.com
 description: Website for SleepDonut Projects> # this means to ignore newlines until "baseurl:"
 baseurl: "/" # the subpath of your site, e.g. /blog/
 url: "http://sleepydonut.com" # the base hostname & protocol for your site
 
-twitter_username: EvanMalmud
-github_username: evanmalmud
-itchio_username: crychair
+crychair_email: "evanmalmud@gmail.com"
+crychair_twitter_username: "EvanMalmud"
+crychair_github_username: "evanmalmud"
+crychair_itchio_username: "crychair"
+
+alcy_email: alcy@gmail.com
+alcy_twitter_username: alcy
+alcy_github_username: alcy
+alcy_itchio_username: alcy
+
+pun_email: pun@gmail.com
+pun_twitter_username: pun
+pun_github_username: pun
+pun_itchio_username: pun
 
 # Build settings
 markdown: kramdown
