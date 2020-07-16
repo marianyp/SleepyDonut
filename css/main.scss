@@ -34,7 +34,11 @@
 // }
 
 // variables.less
-$theme-primary: #F05F40;
+$header-bg:#222;
+$primary-text: #FFF;
+$highlight-text: #e7b48b;
+$disabled-text: #222;
+$theme-primary: #e7b48b;
 $theme-dark: #222;
 
 // Import partials from `sass_dir` (defaults to `_sass`)
