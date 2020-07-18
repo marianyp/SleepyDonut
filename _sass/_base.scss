@@ -345,14 +345,19 @@ header {
 }
 
 // Carousel
-
-
 #portfolio-top {
-    min-height: 90px;
+    min-height: 88px;
     background-image: url('../img/assets/Frame_Carousel_Top.png');
     background-color:#e7b48b;
-    background-repeat: repeat;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+@media (min-width: 800px) {
+    #portfolio-top {
+        background-size: auto auto;
+        background-repeat: repeat;
 
+    }
 }
 
 #portfolio-bottom {
