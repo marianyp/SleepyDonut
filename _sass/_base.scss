@@ -70,16 +70,17 @@ aside {
 // Navigation
 
 .navbar-brand {
-    height: 80px;
+    min-height: 8vh;
 }
 
 
 .navbar-nav>li>a {
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top:4vh;
+    padding-bottom:3vh;
 }
 
 .navbar-default {
+    min-height: 8vh;
     font-family: 'anjaEliane';
     background-color: rgba($theme-dark, .5);
     border-color: rgba($theme-dark, .5);
@@ -88,7 +89,7 @@ aside {
     .navbar-header .navbar-brand {
         color: $primary-text;
         @include sans-serif-font;
-        font-weight: 700;
+        font-weight: 300;
         text-transform: uppercase;
         &:hover,
         &:focus {
@@ -101,9 +102,9 @@ aside {
             > a:focus {
                 font-family: 'anjaEliane';
                 text-transform: uppercase;
-                font-weight: 300;
-                font-size: 17px;
-                color: $theme-dark;
+                font-weight: 50;
+                font-size: 2vh;
+                color: white;
                 &:hover {
                     color: $theme-primary;
                 }
@@ -120,6 +121,12 @@ aside {
             }
         }
     }
+    #nav-options{
+        display: none;
+        a {
+            display: none;
+        }
+      }
     @media (min-width: 768px) {
         background-color: transparent;
         border-color: transparent;
@@ -157,6 +164,12 @@ aside {
                 }
             }
         }
+        #nav-options{
+            display: block;
+            a {
+                display: block;
+            }
+          }
     }
 }
 
@@ -165,7 +178,7 @@ aside {
 header {
     position: relative;
     width: 100%;
-    min-height: auto;
+    min-height: 40vh;
     @include background-cover;
     background-position: center;
     background-color:#e7b48b;
@@ -175,12 +188,13 @@ header {
     .header-content {
         position: relative;
         text-align: center;
-        padding: 100px 15px 100px;
         width: 100%;
         .header-content-inner {
-            h1 {
+            p {
+                padding-top: 10%;
                 font-family: 'anjaEliane';
                 font-weight: 400;
+                font-size: 5vh !important;
                 text-transform: uppercase;
                 margin-top: 0;
                 margin-bottom: 0;
@@ -188,18 +202,23 @@ header {
             hr {
                 margin: 30px auto;
             }
-            p {
-                font-weight: 300;
-                color: rgba(white, .7);
-                font-size: 16px;
-                margin-bottom: 50px;
-            }
             img {
+                padding-top: 15vh;
                 max-width:100%; 
                 height:auto; 
             }
             .header-img {
                 max-width:25%; 
+            }
+        }
+    }
+    @media (min-width: 1220px) {
+        .header-content {
+            padding: 100px 15px 100px;
+            .header-content-inner {
+                p {
+                    font-size: 10vh !important;
+                }
             }
         }
     }
@@ -225,50 +244,6 @@ header {
             }
         }
     }**/
-}
-
-// About
-
-.about {
-    position: relative;
-    width: 100%;
-    min-height: auto;
-    @include background-cover;
-    background-position: center;
-    background-color:white;
-    background-image: url('../img/assets/Background.png'), url('../img/assets/Midground.png'), url('../img/assets/Foreground.png');
-    background-position: left, left, left;
-    background-repeat: no-repeat,no-repeat,no-repeat;
-    background-size: 50%;
-    text-align: center;
-    color: $header-bg;
-    .about-content {
-        position: relative;
-        text-align: center;
-        padding: 100px 15px 100px;
-        width: 100%;
-        .about-content-inner {
-            h1 {
-                font-weight: 700;
-                text-transform: uppercase;
-                margin-top: 0;
-                margin-bottom: 0;
-            }
-            hr {
-                margin: 30px auto;
-            }
-            p {
-                font-weight: 300;
-                color: $header-bg;
-                font-size: 16px;
-                margin-bottom: 50px;
-            }
-            img {
-                max-width:100%; 
-                height:auto; 
-            }
-        }
-    }
 }
 
 // Sections
@@ -346,13 +321,15 @@ header {
 
 // Carousel
 #portfolio-top {
-    min-height: 88px;
+    min-height: 171px;
     background-image: url('../img/assets/Frame_Carousel_Top.png');
     background-color:#e7b48b;
     background-repeat: no-repeat;
     background-size: 100% auto;
+    background-position: bottom;
+    margin-top: -1px;
 }
-@media (min-width: 800px) {
+@media (min-width: 1125px) {
     #portfolio-top {
         background-size: auto auto;
         background-repeat: repeat;
@@ -360,29 +337,35 @@ header {
     }
 }
 
-#portfolio-bottom {
-    min-height: 74px;
-    background-image: url('../img/assets/Frame_Carousel_Bot.png');
-    background-color: transparent;
-    background-repeat: repeat;
-}
-
-
 .games-carousel {
     background-color:#e7b48b;
     padding: 0 0 0 0;
     position: relative;
-    width: 100%;
-    min-height: auto;
+    overflow: hidden;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 20vh;
     .carousel-inner {
         img {
-            width:100%; 
-            height:auto; 
+            width:100% !important;
+            height: auto !important;
         }
     }
     .row {
         margin-right:0px;
         margin-left: 0px;
+    }
+}
+@media (min-width: 768px) {
+    .games-carousel {
+        width: 100% !important;
+        height:auto !important;
+    }
+    .carousel-inner {
+        img {
+            width:100% !important;
+            height:auto !important;
+        }
     }
 }
 
@@ -426,7 +409,7 @@ header {
 // Contact
 @media (min-width: 1220px) {
     #contactBG {
-        min-height: 1000px;
+        min-height: 75vh;
         background-image: url('../img/assets/Website-Bot.png');
         background-position: 50% 70%;
         background-repeat: no-repeat;
@@ -436,11 +419,17 @@ header {
         //padding-top: 66.64%;
     }
 }
+@media (min-width: 1700px) {
+    #contactBG {
+        min-height: 120vh;
+    }
+}
 
 #contact {
+    margin-top: -1px;
     background-color:#e7b48b;
     h3 {
-        font-size: 30px;
+        font-size: 40px;
         font-family: 'anjaEliane';
         color:#222;
     }
@@ -462,6 +451,31 @@ header {
         }
         a,i {
             color:#222;
+        }
+    }
+}
+@media (min-width: 768px) {
+    #contact {
+        h3 {
+            font-size: 50px;
+            font-family: 'anjaEliane';
+            color:#222;
+        }
+        .fa {
+            color: $theme-dark;
+            font-size: 7em;
+        }
+        .profile {
+            width: 33%;
+            height: auto;
+            img {
+                padding-top: 100px;
+                width: 70%;
+                height: auto;
+            }
+            a,i {
+                color:#222;
+            }
         }
     }
 }
@@ -492,6 +506,39 @@ img::-moz-selection {
 
 body {
     -webkit-tap-highlight-color: $theme-dark;
+}
+
+.footer-content {
+    margin-top: -1px;
+    background-color:#e7b48b;
+    padding-top: 40px;
+    padding-bottom: 10px;
+    text-align: center;
+    p {
+        font-size: 20px;
+        font-family: 'anjaEliane';
+        color:#222;
+    }
+}
+@media (min-width: 1220px) {
+    .footer-content {
+        top: -130px;
+        background-color: transparent;
+        position: relative;
+        p {
+            font-size: 30px;
+        }
+    }
+}
+@media (min-width: 1700px) {
+    .footer-content {
+        top: -150px;
+        background-color: transparent;
+        position: relative;
+        p {
+            font-size: 30px;
+        }
+    }
 }
 
 @font-face {
