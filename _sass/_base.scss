@@ -457,9 +457,20 @@ header {
 @media (min-width: 768px) {
     #contact {
         h3 {
+            font-size: 40px;
+            font-family: 'anjaEliane';
+            color:#222;
+        }
+        h5 {
             font-size: 50px;
             font-family: 'anjaEliane';
             color:#222;
+            padding-top: 100px;
+            text-align: center;
+            &:hover {
+                transition: all 0.35s;
+                color:#e7b48b;
+            }
         }
         .fa {
             color: $theme-dark;
