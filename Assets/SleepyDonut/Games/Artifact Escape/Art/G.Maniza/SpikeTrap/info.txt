@@ -1,0 +1,12 @@
+Timing used in preview animation:
+
+Frame 01: 1100ms
+Frame 02: 100ms
+Frame 03: 100ms
+Frame 04: 100ms
+Frame 05: 200ms
+Frame 06: 100ms
+Frame 07: 1000ms
+Frame 08: 100ms
+Frame 09: 100ms
+Frame 10: 100ms
