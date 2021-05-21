@@ -8,6 +8,8 @@ export default function Home() {
         <title>SleepyDonut</title>
       </Head>
 
+      <p>content</p>
+
     </>
   )
 }
