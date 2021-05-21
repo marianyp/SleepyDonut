@@ -1,24 +1,29 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import Link from "next/link"
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router"
 
 import styled from "styled-components"
+import { HeroContext } from "../context/HeroContext"
 
 export default function NavigationBar() {
-    const router = useRouter()
+	const router = useRouter()
+
+	const { heroVisible } = useContext(HeroContext)
 
 	const [dropdownOpen, setDropdownOpen] = useState(false)
-    const [hamburgerOpen, setHamburgerOpen] = useState(false)
+	const [hamburgerOpen, setHamburgerOpen] = useState(false)
 
-    const [transparent, setTransparent] = useState(false)
+	const [transparent, setTransparent] = useState(false)
 
-    useEffect(() => {
-        if(router.pathname === '/') {
-            // Check to see if landing section is visible       
-            setTransparent(false)
-        }
-         
-    }, [])
+	useEffect(() => {
+		if (router.pathname === "/") {
+			setTransparent(heroVisible)
+		}
+	}, [heroVisible])
+
+	useEffect(() => {
+		setDropdownOpen(false)
+	}, [hamburgerOpen])
 
 	const handleHamburgerClick = (e) => {
 		setHamburgerOpen((current) => !current)
@@ -28,8 +33,18 @@ export default function NavigationBar() {
 	}
 
 	return (
-		<NavigationContainer transparent={transparent}>
-			<img src="img/logo/logo-horizontal.png" alt="SleepyDonut Logo" />
+		<NavigationContainer
+			transparent={transparent}
+			hamburgerOpen={hamburgerOpen}
+		>
+			<Link href="/">
+				<a className="home-img-link">
+					<img
+						src="img/logo/logo-horizontal.png"
+						alt="SleepyDonut Logo"
+					/>
+				</a>
+			</Link>
 
 			<Hamburger onClick={handleHamburgerClick}>
 				<HamburgerLine />
@@ -41,11 +56,9 @@ export default function NavigationBar() {
 				<ul>
 					<li>
 						<button onClick={handleDropdownClick}>
-							<Link href="/">
-								<a>
-									Games <i></i>
-								</a>
-							</Link>
+							<a>
+								Games <i></i>
+							</a>
 						</button>
 
 						<Dropdown dropdownOpen={dropdownOpen}>
@@ -70,23 +83,39 @@ export default function NavigationBar() {
 }
 
 const NavigationContainer = styled.header`
+	--height: 5.75rem;
+	position: fixed;
+	top: 0;
+
+	z-index: 99;
+
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 
 	padding: 0 1rem;
 
+	width: 100%;
 	height: 5.75rem;
 
-	background: ${props => props.transparent ? 'transparent' : 'var(--orange)'};
+	background: ${(props) =>
+		props.transparent ? "transparent" : "var(--orange)"};
+
+	transition: 0.4s background ease;
 
 	font-size: 2rem;
 
-	img {
+	.home-img-link {
 		display: inline-block;
 		height: 50%;
+		z-index: 10;
+	}
+	img {
+		height: 100%;
 
-        z-index: 10;
+		opacity: ${(props) =>
+			props.transparent && !props.hamburgerOpen ? "0" : "1"};
+		transition: 0.1s opacity ease;
 	}
 
 	a {
@@ -103,7 +132,7 @@ const NavigationContainer = styled.header`
 
 		display: inline-block;
 
-		background: url("./img/icon-arrow.svg");
+		background: url("./img/icons/icon-arrow.svg");
 		background-repeat: no-repeat;
 		background-size: contain;
 
@@ -112,9 +141,9 @@ const NavigationContainer = styled.header`
 `
 
 const Hamburger = styled.div`
-    cursor: pointer;
+	cursor: pointer;
 
-    z-index: 10;
+	z-index: 10;
 `
 
 const HamburgerLine = styled.div`
@@ -137,16 +166,17 @@ const Menu = styled.nav`
 	left: 0;
 
 	width: 100vw;
-	height: 100%;
+	height: 100vh;
 
 	display: flex;
 
 	align-items: center;
 	justify-content: center;
 
-    transform: ${props => props.hamburgerOpen ? 'translateY(0)' : 'translateY(-100%)'};
+	transform: ${(props) =>
+		props.hamburgerOpen ? "translateY(0)" : "translateY(-100vh)"};
 
-    transition: transform 0.4s ease;
+	transition: transform 0.4s ease;
 
 	background: var(--orange);
 
@@ -181,7 +211,10 @@ const Dropdown = styled.div`
 	overflow: hidden;
 	max-height: ${(props) => (props.dropdownOpen ? "100vw" : "0")};
 
-	transition: ${props => props.dropdownOpen ? "max-height 0.4s ease-in" : "max-height 0.25s ease-out"};
+	transition: ${(props) =>
+		props.dropdownOpen
+			? "max-height 0.4s ease-in"
+			: "max-height 0.25s ease-out"};
 
 	a {
 		display: block;
