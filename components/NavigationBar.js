@@ -31,6 +31,9 @@ export default function NavigationBar() {
 	const handleDropdownClick = (e) => {
 		setDropdownOpen((current) => !current)
 	}
+	const handleLogoClick = (e) => {
+		setHamburgerOpen(false)
+	}
 
 	return (
 		<NavigationContainer
@@ -38,7 +41,7 @@ export default function NavigationBar() {
 			hamburgerOpen={hamburgerOpen}
 		>
 			<Link href="/">
-				<a className="home-img-link">
+				<a className="home-img-link" onClick={handleLogoClick}>
 					<img
 						src="img/logo/logo-horizontal.png"
 						alt="SleepyDonut Logo"

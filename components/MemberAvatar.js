@@ -6,7 +6,6 @@ export default function MemberAvatar({ img, size }) {
 			<FrameContainer>
 				<img src="./img/frame.png" />
 			</FrameContainer>
-
 			<PictureContainer>
 				<img src="./img/crychair.png" />
 			</PictureContainer>
@@ -24,6 +23,10 @@ const AvatarContainer = styled.div`
 const FrameContainer = styled.div`
 	height: var(--size);
 	width: var(--size);
+
+	position: absolute;
+	top: 0;
+
 	img {
 		height: 100%;
 		width: 100%;
@@ -31,12 +34,12 @@ const FrameContainer = styled.div`
 `
 
 const PictureContainer = styled.div`
-	position: absolute;
-	top: 0;
 	height: var(--size);
 	width: var(--size);
+
+	clip-path: polygon(6% 74.5%, 69% 75%, 93% 9%, 30% 9%);
+
 	img {
-		clip-path: polygon(30% 5%, 5% 78%, 24% 77%, 69% 77%, 78% 51%, 94% 5%);
 		object-fit: contain;
 		height: 100%;
 		width: 100%;

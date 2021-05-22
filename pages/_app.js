@@ -1,5 +1,6 @@
 import "normalize.css"
 import "../assets/css/globals.scss"
+import Footer from "../components/Footer"
 import NavigationBar from "../components/NavigationBar"
 import { HeroProvider } from "../context/HeroContext"
 function MyApp({ Component, pageProps }) {
@@ -8,6 +9,7 @@ function MyApp({ Component, pageProps }) {
 			<HeroProvider>
 				<NavigationBar />
 				<Component {...pageProps} />
+				<Footer />
 			</HeroProvider>
 		</>
 	)

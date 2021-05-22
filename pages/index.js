@@ -49,13 +49,13 @@ export default function Home() {
 					<Grunge />
 				</GrungeContainer>
 				<FootingContainer>
-					<Wrapper>
+					<FootingWrapper>
 						<HomeBio />
 
 						<hr />
 
 						<HomeSubscribe />
-					</Wrapper>
+					</FootingWrapper>
 				</FootingContainer>
 			</Footing>
 		</>
@@ -73,6 +73,7 @@ const Hero = styled.main`
 		url("./img/hero-img.png");
 	background-repeat: no-repeat;
 	background-position: 15%;
+	background-size: cover;
 
 	display: flex;
 	justify-content: center;
@@ -87,6 +88,8 @@ const HeroFeature = styled.div`
 	align-items: center;
 
 	flex-direction: column;
+
+	max-width: 700px;
 
 	img {
 		width: 40%;
@@ -106,38 +109,71 @@ const HeroFeature = styled.div`
 		background: var(--orange);
 		color: white;
 
+		text-shadow: var(--text-shadow);
+
 		box-shadow: 0 3px 6px rgba(148, 82, 82, 0.32);
 	}
 `
 
 const GamesSection = styled.section`
 	background: linear-gradient(var(--orange), var(--red) 200%);
-	padding-bottom: 16rem;
+	padding-bottom: 8rem;
 `
 
 const GrungeContainer = styled.div`
 	width: 100%;
-	min-height: 100vh;
+	height: 100%;
+	
+	background: linear-gradient(var(--indigo), var(--indigo));
 
 	overflow: hidden;
 	position: absolute;
+	top: 0;
+	z-index: -1;
+
+	pointer-events: none;
 `
 
 const Grunge = styled.div`
 	position: absolute;
+
 	top: 0;
 
 	width: 300%;
-	min-height: 100vh;
+	height: 100%;
 
 	background: url("./img/grunge.png");
-	background-size: 145%;
-	background-position: 100%;
+	background-size: 2000px;
+	background-position: calc(100vw - 30%);
 
-	transform: translateX(-40%) rotate(10deg);
+	transform: translateX(-40%) rotate(calc(10deg + 10vw));
 
-	opacity: 0.06;
+	opacity: 0.07;
 	overflow: hidden;
+
+	pointer-events: none;
+`
+
+const FootingWrapper = styled.div`
+	padding: 2rem;
+	height: 100%;
+`
+
+const FootingContainer = styled.div`
+	z-index: 1;
+	
+	width: 100%;
+
+	padding: 6rem 0;
+
+	hr {
+		width: 100%;
+		height: 2px;
+		background-color: white;
+		border: none;
+
+		box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+	}
 `
 
 const Footing = styled.section`
@@ -154,12 +190,13 @@ const Footing = styled.section`
 
 		background: url("./img/splash.png");
 		background-repeat: repeat no-repeat;
-		background-size: contain;
+		background-size: 500px;
 		filter: drop-shadow(
 			0 calc(var(--blur) * -2.1) var(--blur) rgba(0, 0, 0, 0.075)
 		);
 
 		transform: translateY(calc(-50% + 5px));
+		pointer-events: none;
 	}
 	&::after {
 		content: "";
@@ -177,27 +214,39 @@ const Footing = styled.section`
 		);
 
 		transform: translateY(-45%);
+		pointer-events: none;
 	}
 
 	position: relative;
 
 	min-height: 100vh;
 
-	background: var(--indigo);
-`
+	@media (min-width: 1000px) {
+		min-height: auto;
 
-const FootingContainer = styled.div`
-	position: absolute;
-	width: 100%;
+		${FootingWrapper} {
+			display: flex;
+			align-items: stretch;
+		}
+		${FootingContainer} {
+			padding: 0;
+			display: flex;
 
-  padding: 6rem 0;
+			padding: 4rem 0;
 
-	hr {
-		width: 100%;
-		height: 2px;
-		background-color: white;
-		border: none;
+			h5 {
+				display: inline-block;
+			}
 
-    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+			p {
+				display: inline-block;
+			}
+
+			hr {
+				width: 2px;
+				height: auto;
+				margin: 0 4rem;
+			}
+		}
 	}
 `
