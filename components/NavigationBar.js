@@ -15,9 +15,16 @@ export default function NavigationBar() {
 
 	const [transparent, setTransparent] = useState(false)
 
+	const [fixed, setFixed] = useState(null)
+
 	useEffect(() => {
 		if (router.pathname === "/") {
 			setTransparent(heroVisible)
+			setFixed(null)
+		} else if (!heroVisible) {
+			setFixed(true)
+		} else if (heroVisible) {
+			setFixed(false)
 		}
 	}, [heroVisible])
 
@@ -39,11 +46,13 @@ export default function NavigationBar() {
 		<NavigationContainer
 			transparent={transparent}
 			hamburgerOpen={hamburgerOpen}
+			fixed={fixed}
+			dropdownOpen={dropdownOpen}
 		>
 			<Link href="/">
 				<a className="home-img-link" onClick={handleLogoClick}>
 					<img
-						src="img/logo/logo-horizontal.png"
+						src="/img/logo/logo-horizontal.png"
 						alt="SleepyDonut Logo"
 					/>
 				</a>
@@ -65,8 +74,10 @@ export default function NavigationBar() {
 						</button>
 
 						<Dropdown dropdownOpen={dropdownOpen}>
-							<a href="#">Mace Madness</a>
-							<a href="#">Outlaws</a>
+							<DropdownContainer>
+								<a href="#">Mace Madness</a>
+								<a href="#">Outlaws</a>
+							</DropdownContainer>
 						</Dropdown>
 					</li>
 					<li>
@@ -84,64 +95,6 @@ export default function NavigationBar() {
 		</NavigationContainer>
 	)
 }
-
-const NavigationContainer = styled.header`
-	--height: 5.75rem;
-	position: fixed;
-	top: 0;
-
-	z-index: 99;
-
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-
-	padding: 0 1rem;
-
-	width: 100%;
-	height: 5.75rem;
-
-	background: ${(props) =>
-		props.transparent ? "transparent" : "var(--orange)"};
-
-	transition: 0.4s background ease;
-
-	font-size: 2rem;
-
-	.home-img-link {
-		display: inline-block;
-		height: 50%;
-		z-index: 10;
-	}
-	img {
-		height: 100%;
-
-		opacity: ${(props) =>
-			props.transparent && !props.hamburgerOpen ? "0" : "1"};
-		transition: 0.1s opacity ease;
-	}
-
-	a {
-		color: white;
-		text-decoration: none;
-
-		font-weight: 900;
-		text-transform: uppercase;
-	}
-
-	i {
-		width: 1.125rem;
-		height: 1.5rem;
-
-		display: inline-block;
-
-		background: url("./img/icons/icon-arrow.svg");
-		background-repeat: no-repeat;
-		background-size: contain;
-
-		transform: rotate(180deg) translateY(20%);
-	}
-`
 
 const Hamburger = styled.div`
 	cursor: pointer;
@@ -246,6 +199,169 @@ const Dropdown = styled.div`
 
 				background: rgba(0, 0, 0, 0.08);
 			}
+		}
+	}
+`
+
+const DropdownContainer = styled.div``
+
+const NavigationContainer = styled.header`
+	--height: 5.75rem;
+	position: ${(props) =>
+		props.fixed ? "fixed" : props.fixed !== null ? "relative" : "fixed"};
+
+	top: 0;
+
+	z-index: 99;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	padding: 0 1rem;
+
+	width: 100%;
+	height: 5.75rem;
+
+	background: ${(props) =>
+		props.transparent ? "transparent" : "var(--orange)"};
+
+	transition: 0.4s background ease;
+
+	font-size: 2rem;
+
+	.home-img-link {
+		display: inline-block;
+		height: 50%;
+		z-index: 10;
+	}
+	img {
+		height: 100%;
+
+		opacity: ${(props) =>
+			props.transparent && !props.hamburgerOpen ? "0" : "1"};
+		transition: 0.1s opacity ease;
+	}
+
+	a {
+		color: white;
+		text-decoration: none;
+
+		font-weight: 900;
+		text-transform: uppercase;
+	}
+
+	i {
+		width: 1.125rem;
+		height: 1.5rem;
+
+		display: inline-block;
+
+		background: url("/img/icons/icon-arrow.svg");
+		background-repeat: no-repeat;
+		background-size: contain;
+
+		transform: rotate(180deg) translateY(20%);
+	}
+
+	@media (min-width: 1000px) {
+		font-size: 1rem;
+
+		${Hamburger} {
+			display: none;
+		}
+
+		${Menu} {
+			transition: none;
+
+			position: static;
+			display: inline-block;
+			width: auto;
+			height: auto;
+
+			transform: none;
+
+			background: none;
+
+			text-align: left;
+
+			ul {
+				display: flex;
+				justify-content: flex-start;
+
+				li {
+					&:not(:last-of-type) {
+						margin-bottom: 0;
+						margin-right: 1rem;
+					}
+				}
+			}
+		}
+
+		${Dropdown} {
+			width: 30vw;
+
+			position: absolute;
+			top: 100%;
+			transform: translateX(calc(-100% + (30vw / 5)));
+
+			transition: ${(props) =>
+					props.dropdownOpen ? "max-height 0.2s" : "max-height 0.42s"}
+				ease;
+
+			max-height: none;
+			overflow: visible;
+
+			a {
+				position: relative;
+				padding: 1rem;
+
+				background: ${(props) =>
+					props.transparent ? "#6e2cda" : "var(--orange)"};
+				transition: 0.4s background ease;
+
+				&::after {
+					transform: translateX(-1rem);
+				}
+			}
+		}
+
+		${DropdownContainer} {
+			overflow: hidden;
+			max-height: ${(props) => (props.dropdownOpen ? "100vw" : "0")};
+			transition: ${(props) =>
+				props.dropdownOpen
+					? "max-height 0.4s ease-in"
+					: "max-height 0.25s ease-out"};
+			::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				right: 0;
+
+				transform: translateY(-100%);
+
+				width: 2rem;
+				height: 2rem;
+
+				clip-path: polygon(54% 44%, 0 100%, 100% 100%);
+				background: ${(props) =>
+					props.transparent ? "#6e2cda" : "var(--orange)"};
+
+				overflow: hidden;
+				max-height: ${(props) => (props.dropdownOpen ? "100vw" : "0")};
+				transition: ${(props) =>
+					props.dropdownOpen
+						? "max-height 0.4s ease-in"
+						: "max-height 0.25s ease-out"};
+			}
+		}
+
+		i {
+			width: 0.75rem;
+			height: 0.8rem;
+
+			transform: rotate(180deg) translateY(10%);
 		}
 	}
 `

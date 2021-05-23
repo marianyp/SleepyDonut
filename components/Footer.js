@@ -8,24 +8,24 @@ export default function Footer() {
 			<FooterSocials>
 				<Social href="#">
 					<img
-						src="./img/icons/icon-footer-discord.svg"
+						src="/img/icons/icon-footer-discord.svg"
 						alt="discord"
 					/>
 				</Social>
 				<Social href="#">
 					<img
-						src="./img/icons/icon-footer-twitter.svg"
+						src="/img/icons/icon-footer-twitter.svg"
 						alt="twitter"
 					/>
 				</Social>
 				<Social href="#">
 					<img
-						src="./img/icons/icon-footer-twitch.svg"
+						src="/img/icons/icon-footer-twitch.svg"
 						alt="twitch"
 					/>
 				</Social>
 				<Social href="#">
-					<img src="./img/icons/icon-footer-email.svg" alt="email" />
+					<img src="/img/icons/icon-footer-email.svg" alt="email" />
 				</Social>
 			</FooterSocials>
 		</FooterContainer>

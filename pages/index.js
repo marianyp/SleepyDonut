@@ -1,25 +1,13 @@
 import Head from "next/head"
-import { useContext, useEffect } from "react"
-import { useInView } from "react-intersection-observer"
 import styled from "styled-components"
 import HomeBio from "../components/HomeBio"
 import HomeGames from "../components/HomeGames"
 import HomeSubscribe from "../components/HomeSubscribe"
-import NavigationBar from "../components/NavigationBar"
 import ScrollDown from "../components/ScrollDown"
-import Wrapper from "../components/styled/Wrapper"
-import { HeroContext } from "../context/HeroContext"
+import useHero from "../hooks/useHero"
 
 export default function Home() {
-	const { setHeroVisible } = useContext(HeroContext)
-
-	const [heroObserverRef, heroInView, heroEntry] = useInView({
-		threshold: 0.4,
-	})
-
-	useEffect(() => {
-		setHeroVisible(heroInView)
-	}, [heroInView])
+	const heroObserverRef = useHero()
 
 	return (
 		<>
@@ -123,7 +111,7 @@ const GamesSection = styled.section`
 const GrungeContainer = styled.div`
 	width: 100%;
 	height: 100%;
-	
+
 	background: linear-gradient(var(--indigo), var(--indigo));
 
 	overflow: hidden;
@@ -161,7 +149,7 @@ const FootingWrapper = styled.div`
 
 const FootingContainer = styled.div`
 	z-index: 1;
-	
+
 	width: 100%;
 
 	padding: 6rem 0;
