@@ -20,7 +20,7 @@ export default function ScrollDown() {
         }
     }, [])
 	return (
-		<ArrowContainer opacity={hidden}>
+		<ArrowContainer opaque={hidden}>
 			<img src="./img/icons/icon-scroll-arrow.svg" alt="go down" />
 		</ArrowContainer>
 	)
@@ -33,7 +33,7 @@ const ArrowContainer = styled.div`
     z-index: 0;
 
 	img {
-        opacity: ${props => props.opacity ? '0' : '1'};
+        opacity: ${props => props.opaque ? '0' : '1'};
         transition: 0.2s opacity ease;
 		animation: float 4s ease-in-out infinite;
 	}

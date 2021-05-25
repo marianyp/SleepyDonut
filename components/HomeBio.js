@@ -4,7 +4,7 @@ import MemberAvatar from "./MemberAvatar"
 export default function HomeBio() {
 	return (
 		<BioContainer>
-			<MemberAvatar size="10rem" />
+			<MemberAvatar src="/img/crychair.png" size="10rem" />
 			<InfoContainer>
 				<h5>Founder | Evan Malmud</h5>
 				<p>

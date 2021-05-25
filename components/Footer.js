@@ -44,7 +44,7 @@ const FooterContainer = styled.footer`
 	padding: 0 1rem;
 `
 
-const FooterSocials = styled.a`
+const FooterSocials = styled.div`
 	display: flex;
 `
 const Social = styled.a`

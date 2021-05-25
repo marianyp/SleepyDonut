@@ -1,0 +1,8 @@
+<svg id="Group_29" data-name="Group 29" xmlns="http://www.w3.org/2000/svg" width="175.074" height="53.735" viewBox="0 0 175.074 53.735">
+  <rect id="Rectangle_42" data-name="Rectangle 42" width="175.074" height="53.735" rx="5"/>
+  <g id="Group_28" data-name="Group 28" transform="translate(16.901 8.234)">
+    <path id="iconmonstr-steam-4" d="M37.217,18.634A18.634,18.634,0,0,1,.347,22.459l7.4,3.11a4.884,4.884,0,0,0,9.676-.924l.011,0,5.593-4.168A6.354,6.354,0,1,0,16.746,14l-4.1,5.735a4.816,4.816,0,0,0-2.781.792L.092,16.417a18.629,18.629,0,0,1,37.125,2.217Zm-25.741,8.5-2.4-1.008a3.776,3.776,0,1,0,3.458-5.292,3.745,3.745,0,0,0-1.335.248L13.6,22.094a2.736,2.736,0,0,1-2.12,5.045ZM23.1,18.44a4.32,4.32,0,1,1,4.318-4.32A4.326,4.326,0,0,1,23.1,18.44Zm0-1.059a3.263,3.263,0,1,0-3.264-3.263A3.264,3.264,0,0,0,23.1,17.381Z" transform="translate(-0.092 0)" fill="#fff"/>
+    <text id="Available_on_steam" data-name="Available on
+steam" transform="translate(48.535 15.9)" fill="#fff" font-size="13" font-family="Roboto-Regular, Roboto"><tspan x="0" y="0">AVAILABLE ON</tspan><tspan font-family="Roboto-Bold, Roboto" font-weight="700"><tspan x="0" y="13">STEAM</tspan></tspan></text>
+  </g>
+</svg>

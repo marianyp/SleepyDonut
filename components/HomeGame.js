@@ -19,10 +19,10 @@ export default function HomeGame({ name, img, platform, link }) {
 			<Clickable>
 				<GameContainer img={img} icon={PLATFORM_ENUM[platform]}>
 					<h4>{name}</h4>
-					<a href={link ?? "#"}>
+					<div>
 						<i></i>
 						Play Now
-					</a>
+					</div>
 				</GameContainer>
 			</Clickable>
 		</Link>
@@ -38,7 +38,7 @@ const Clickable = styled.a`
 		margin-bottom: 1rem;
 	}
 
-	&:is(:not(:nth-of-type(3n))):last-of-type{
+	&:is(:not(:nth-of-type(3n))):last-of-type {
 		grid-column: 2;
 	}
 
@@ -76,7 +76,7 @@ const GameContainer = styled.div`
 		font-size: 1.4rem;
 	}
 
-	a {
+	div {
 		display: flex;
 		align-items: center;
 		margin: 0 auto;
@@ -105,6 +105,11 @@ const GameContainer = styled.div`
 
 		cursor: pointer;
 	}
+	:hover {
+		opacity: 0.8;
+	}
+
+	transition: opacity 0.2s ease;
 
 	@media (min-width: 900px) {
 		height: 20vw;

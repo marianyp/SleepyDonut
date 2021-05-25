@@ -1,114 +1,20 @@
-import Head from "next/head"
 import styled from "styled-components"
-import HomeBio from "../components/HomeBio"
-import HomeGames from "../components/HomeGames"
-import HomeSubscribe from "../components/HomeSubscribe"
-import ScrollDown from "../components/ScrollDown"
-import useHero from "../hooks/useHero"
 
-export default function Home() {
-	const heroObserverRef = useHero()
-
+export default function CustomFooting({ children, waves }) {
 	return (
 		<>
-			<Head>
-				<title>SleepyDonut</title>
-			</Head>
-
-			<Hero ref={heroObserverRef}>
-				<HeroFeature>
-					<img
-						src="/img/logo/logo-vertical.png"
-						alt="SleepyDonut Logo"
-					/>
-
-					<div>We Make Games For Fun!</div>
-				</HeroFeature>
-
-				<ScrollDown />
-			</Hero>
-
-			<GamesSection>
-				<HomeGames />
-			</GamesSection>
-
-			<Footing>
+			<Footing waves={waves}>
 				<Waves></Waves>
-
 				<GrungeContainer>
 					<Grunge />
 				</GrungeContainer>
 				<FootingContainer>
-					<FootingWrapper>
-						<HomeBio />
-
-						<hr />
-
-						<HomeSubscribe />
-					</FootingWrapper>
+					<FootingWrapper>{children}</FootingWrapper>
 				</FootingContainer>
 			</Footing>
 		</>
 	)
 }
-
-const Hero = styled.main`
-	height: calc(100vh);
-
-	background: linear-gradient(
-			transparent 0%,
-			var(--orange) 98%,
-			var(--orange)
-		),
-		url("/img/hero-img.png");
-	background-repeat: no-repeat;
-	background-position: 15%;
-	background-size: cover;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	flex-direction: column;
-`
-
-const HeroFeature = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	flex-direction: column;
-
-	max-width: 700px;
-
-	img {
-		width: 40%;
-	}
-
-	div {
-		width: 90%;
-
-		padding: 0.6rem 0;
-
-		font-weight: 900;
-		text-align: center;
-		text-transform: uppercase;
-
-		border-radius: 2rem;
-
-		background: var(--orange);
-		color: white;
-
-		text-shadow: var(--text-shadow);
-
-		box-shadow: 0 3px 6px rgba(148, 82, 82, 0.32);
-	}
-`
-
-const GamesSection = styled.section`
-	background: linear-gradient(var(--orange), var(--red) 200%);
-	padding-bottom: 8rem;
-`
 
 const GrungeContainer = styled.div`
 	width: 100%;
@@ -133,7 +39,7 @@ const Grunge = styled.div`
 	height: 100%;
 
 	background: url("/img/grunge.png");
-	background-size: 2000px;
+	background-size: clamp(1000px, 420vw, 2000px);
 	background-position: calc(100vw - 30%);
 
 	transform: translateX(-40%) rotate(calc(10deg + 10vw));
@@ -147,16 +53,19 @@ const Grunge = styled.div`
 const FootingWrapper = styled.div`
 	padding: 2rem;
 	height: 100%;
+	width: 100%;
+	
 `
 
 const FootingContainer = styled.div`
-	z-index: 1;
+	position: relative;
+	top: 0;
+	left: 0;
+	z-index: 10;
 
 	width: 100%;
 
 	padding: 6rem 0;
-
-	position: relative;
 
 	hr {
 		width: 100%;
@@ -167,21 +76,16 @@ const FootingContainer = styled.div`
 		box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
 	}
 `
+
 const Waves = styled.div``
 
 const Footing = styled.section`
-	@keyframes splash-move {
-		0% {
-			background-position: 0;
-		}
-		100% {
-			background-position: 500px;
-		}
-	}
+	overflow: hidden;
+	position: relative;
 	&::before {
 		--blur: 6px;
 
-		content: "";
+		content: ${(props) => (props.waves ? "" : null)};
 
 		position: absolute;
 		top: 0;
@@ -198,8 +102,6 @@ const Footing = styled.section`
 
 		transform: translateY(calc(-50% + 5px));
 		pointer-events: none;
-
-		animation: splash-move 8s cubic-bezier(0.36, 0.45, 0.63, 0.53) infinite;
 	}
 	&::after {
 		content: "";
@@ -216,13 +118,15 @@ const Footing = styled.section`
 			transparent 90%
 		);
 
-		transform: translateY(-40%);
+		transform: translateY(calc(-38.5%));
+		overflow: hidden;
+		z-index: -1;
 		pointer-events: none;
 	}
-
-	position: relative;
-
-	min-height: 100vh;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 
 	@media (min-width: 1000px) {
 		min-height: auto;
@@ -251,7 +155,6 @@ const Footing = styled.section`
 				margin: 0 4rem;
 			}
 		}
-
 		${Waves} {
 			position: absolute;
 			width: 100%;
@@ -261,6 +164,7 @@ const Footing = styled.section`
 			background-size: 70%;
 			background-repeat: no-repeat;
 			background-position: 0% 100%;
+			transform: scaleX(-1);
 		}
 	}
 `

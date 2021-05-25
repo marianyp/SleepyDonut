@@ -1,13 +1,13 @@
 import styled from "styled-components"
 
-export default function MemberAvatar({ img, size }) {
+export default function MemberAvatar({ src, size }) {
 	return (
 		<AvatarContainer size={size}>
 			<FrameContainer>
-				<img src="./img/frame.png" />
+				<img src="/img/frame.png" />
 			</FrameContainer>
 			<PictureContainer>
-				<img src="./img/crychair.png" />
+				<img src={src} />
 			</PictureContainer>
 		</AvatarContainer>
 	)

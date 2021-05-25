@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 
 import styled from "styled-components"
 import { HeroContext } from "../context/HeroContext"
+import Router from "next/router"
 
 export default function NavigationBar() {
 	const router = useRouter()
@@ -17,13 +18,24 @@ export default function NavigationBar() {
 
 	const [fixed, setFixed] = useState(null)
 
+	const [sliding, setSliding] = useState(false)
+
+	const navRef = useRef()
+
+	Router.events.on("routeChangeComplete", () => {
+		setHamburgerOpen(false)
+	})
+
 	useEffect(() => {
 		if (router.pathname === "/") {
 			setTransparent(heroVisible)
 			setFixed(null)
 		} else if (!heroVisible) {
+			slideDown(navRef.current)
+			setTransparent(false)
 			setFixed(true)
 		} else if (heroVisible) {
+			setTransparent(false)
 			setFixed(false)
 		}
 	}, [heroVisible])
@@ -31,6 +43,30 @@ export default function NavigationBar() {
 	useEffect(() => {
 		setDropdownOpen(false)
 	}, [hamburgerOpen])
+
+	useEffect(() => {
+		if (dropdownOpen) {
+			document.addEventListener("click", handleDropdownOpen)
+		}
+
+		return () => {
+			document.removeEventListener("click", handleDropdownOpen)
+		}
+	}, [dropdownOpen])
+
+	const slideDown = (elm) => {
+		if (!elm) return
+
+		setSliding(true)
+
+		requestAnimationFrame(() => {
+			setSliding(false)
+		})
+	}
+
+	const handleDropdownOpen = (e) => {
+		setDropdownOpen(false)
+	}
 
 	const handleHamburgerClick = (e) => {
 		setHamburgerOpen((current) => !current)
@@ -42,12 +78,18 @@ export default function NavigationBar() {
 		setHamburgerOpen(false)
 	}
 
+	const handleNavigationClick = (e) => {
+		setHamburgerOpen(false)
+	}
+
 	return (
 		<NavigationContainer
 			transparent={transparent}
 			hamburgerOpen={hamburgerOpen}
 			fixed={fixed}
 			dropdownOpen={dropdownOpen}
+			ref={navRef}
+			className={sliding ? "sliding" : null}
 		>
 			<Link href="/">
 				<a className="home-img-link" onClick={handleLogoClick}>
@@ -74,20 +116,24 @@ export default function NavigationBar() {
 						</button>
 
 						<Dropdown dropdownOpen={dropdownOpen}>
-							<DropdownContainer>
-								<a href="#">Mace Madness</a>
-								<a href="#">Outlaws</a>
+							<DropdownContainer onClick={handleNavigationClick}>
+								<Link href="/game/mace-madness">
+									<a href="#">Mace Madness</a>
+								</Link>
+								<Link href="/game/outlaws">
+									<a href="#">Outlaws</a>
+								</Link>
 							</DropdownContainer>
 						</Dropdown>
 					</li>
 					<li>
 						<Link href="/">
-							<a>Blog</a>
+							<a onClick={handleNavigationClick}>Blog</a>
 						</Link>
 					</li>
 					<li>
 						<Link href="/">
-							<a>Contact</a>
+							<a onClick={handleNavigationClick}>Contact</a>
 						</Link>
 					</li>
 				</ul>
@@ -206,6 +252,10 @@ const Dropdown = styled.div`
 const DropdownContainer = styled.div``
 
 const NavigationContainer = styled.header`
+	&.sliding {
+		transform: translateY(-100%);
+		transition: 0.4s background ease;
+	}
 	--height: 5.75rem;
 	position: ${(props) =>
 		props.fixed ? "fixed" : props.fixed !== null ? "relative" : "fixed"};
@@ -226,7 +276,9 @@ const NavigationContainer = styled.header`
 	background: ${(props) =>
 		props.transparent ? "transparent" : "var(--orange)"};
 
-	transition: 0.4s background ease;
+	transform: translateY(0);
+
+	transition: 0.4s background ease, 0.4s transform ease-in-out;
 
 	font-size: 2rem;
 
@@ -317,7 +369,7 @@ const NavigationContainer = styled.header`
 				padding: 1rem;
 
 				background: ${(props) =>
-					props.transparent ? "#6e2cda" : "var(--orange)"};
+					props.transparent ? "#6e2cda" : "#D6A781"};
 				transition: 0.4s background ease;
 
 				&::after {

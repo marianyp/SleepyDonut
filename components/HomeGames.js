@@ -8,16 +8,16 @@ export default function HomeGames() {
 			<GamesContainer>
 				<HomeGame
 					name="Mace Madness"
-					img="./img/thumbnail-mace-madness.png"
+					img="/img/thumbnail-mace-madness.png"
 					platform="itch"
 				/>
 				<HomeGame
 					name="Outlaws"
-					img="./img/thumbnail-outlaws.png"
+					img="/img/thumbnail-outlaws.png"
 					platform="itch"
 				/>
 				<HomeGame name="Some New Game" platform="itch" />
-				{/* <HomeGame name="Some New Game 2" platform="itch" /> */}
+				<HomeGame name="Some New Game 2" platform="itch" />
 				{/* <HomeGame name="Some New Game 3" platform="itch" /> */}
 				{/* <HomeGame name="Some New Game 4" platform="itch" /> */}
 				{/* <HomeGame name="Some New Game 5" platform="itch" /> */}
