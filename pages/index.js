@@ -32,7 +32,7 @@ export default function Home() {
 				<HomeGames />
 			</GamesSection>
 
-			<Footing>
+			<Footing id="contact">
 				<Waves></Waves>
 
 				<GrungeContainer>

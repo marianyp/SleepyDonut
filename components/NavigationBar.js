@@ -100,7 +100,7 @@ export default function NavigationBar() {
 			ref={navRef}
 			className={sliding ? "sliding" : null}
 		>
-			<Link href="/">
+			<Link href="/#">
 				<a className="home-img-link" onClick={handleLogoClick}>
 					<img
 						src="/img/logo/logo-horizontal.png"
@@ -136,12 +136,12 @@ export default function NavigationBar() {
 						</Dropdown>
 					</li>
 					<li>
-						<Link href="/">
+						<Link href="/blog">
 							<a onClick={handleNavigationClick}>Blog</a>
 						</Link>
 					</li>
 					<li>
-						<Link href="/">
+						<Link href="/#contact">
 							<a onClick={handleNavigationClick}>Contact</a>
 						</Link>
 					</li>

@@ -1,7 +1,7 @@
 import Head from "next/head"
 import React from "react"
-import SingularBlogPost from "../components/SingularBlogPost"
-import BlogLayout from "../layout/BlogLayout"
+import SingularBlogPost from "../../components/SingularBlogPost"
+import BlogLayout from "../../layout/BlogLayout"
 
 export default function Blogs() {
 	return (
