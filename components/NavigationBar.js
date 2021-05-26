@@ -26,9 +26,18 @@ export default function NavigationBar() {
 		setHamburgerOpen(false)
 	})
 
+	const dynamicFixedRoutes = ["/", "/blog/"] // Routes which should always be fixed
+
 	useEffect(() => {
+		const willBeFixed = dynamicFixedRoutes.find((r) =>
+			`${router.pathname}/`.indexOf(r) != -1 && r != '/'
+		)
+
 		if (router.pathname === "/") {
 			setTransparent(heroVisible)
+			setFixed(null)
+		} else if (willBeFixed) {
+			setTransparent(false)
 			setFixed(null)
 		} else if (!heroVisible) {
 			slideDown(navRef.current)
