@@ -21,32 +21,41 @@ export default function NavigationBar() {
 	const [sliding, setSliding] = useState(false)
 
 	const navRef = useRef()
+	const dropdownContainerRef = useRef()
+
+	const maxItemsShown = 4
+
+	const [overflow, setOverflow] = useState()
+
+	useEffect(() => {
+		setOverflow(
+			(
+				dropdownContainerRef.current?.childElementCount > maxItemsShown
+			).toString(),
+		)
+	}, [])
 
 	Router.events.on("routeChangeComplete", () => {
 		setHamburgerOpen(false)
+
+		const willBeFixed = Boolean(
+			dynamicFixedRoutes.find(
+				(r) => `${router.pathname}/`.indexOf(r) != -1 && r != "/",
+			),
+		)
+		navigationCheck(willBeFixed, true)
 	})
 
 	const dynamicFixedRoutes = ["/", "/blog/"] // Routes which should always be fixed
 
 	useEffect(() => {
-		const willBeFixed = dynamicFixedRoutes.find((r) =>
-			`${router.pathname}/`.indexOf(r) != -1 && r != '/'
+		const willBeFixed = Boolean(
+			dynamicFixedRoutes.find(
+				(r) => `${router.pathname}/`.indexOf(r) != -1 && r != "/",
+			),
 		)
 
-		if (router.pathname === "/") {
-			setTransparent(heroVisible)
-			setFixed(null)
-		} else if (willBeFixed) {
-			setTransparent(false)
-			setFixed(null)
-		} else if (!heroVisible) {
-			slideDown(navRef.current)
-			setTransparent(false)
-			setFixed(true)
-		} else if (heroVisible) {
-			setTransparent(false)
-			setFixed(false)
-		}
+		navigationCheck(willBeFixed)
 	}, [heroVisible])
 
 	useEffect(() => {
@@ -58,19 +67,33 @@ export default function NavigationBar() {
 			document.addEventListener("click", handleDropdownOpen)
 		}
 
+		dropdownContainerRef.current.scrollTop = "0"
+
 		return () => {
 			document.removeEventListener("click", handleDropdownOpen)
 		}
 	}, [dropdownOpen])
 
-	const slideDown = (elm) => {
-		if (!elm) return
-
+	const slideDown = () => {
 		setSliding(true)
 
-		requestAnimationFrame(() => {
+		setTimeout(() => {
 			setSliding(false)
-		})
+		}, 50)
+	}
+
+	const navigationCheck = (willBeFixed, soft) => {
+		if (router.pathname === "/") {
+			setTransparent(heroVisible)
+			setFixed(true)
+		} else if (willBeFixed) {
+			setTransparent(false)
+			setFixed(true)
+		} else {
+			setTransparent(false)
+			setFixed(!heroVisible)
+			if (!heroVisible && !soft) slideDown()
+		}
 	}
 
 	const handleDropdownOpen = (e) => {
@@ -99,6 +122,7 @@ export default function NavigationBar() {
 			dropdownOpen={dropdownOpen}
 			ref={navRef}
 			className={sliding ? "sliding" : null}
+			overflow={overflow}
 		>
 			<Link href="/#">
 				<a className="home-img-link" onClick={handleLogoClick}>
@@ -125,7 +149,55 @@ export default function NavigationBar() {
 						</button>
 
 						<Dropdown dropdownOpen={dropdownOpen}>
-							<DropdownContainer onClick={handleNavigationClick}>
+							<DropdownContainer
+								onClick={handleNavigationClick}
+								ref={dropdownContainerRef}
+								overflow={overflow}
+								maxItems={maxItemsShown}
+								dropdownOpen={dropdownOpen}
+							>
+								<Link href="/game/mace-madness">
+									<a href="#">Mace Madness</a>
+								</Link>
+								<Link href="/game/outlaws">
+									<a href="#">Outlaws</a>
+								</Link>
+								<Link href="/game/mace-madness">
+									<a href="#">Mace Madness</a>
+								</Link>
+								<Link href="/game/outlaws">
+									<a href="#">Outlaws</a>
+								</Link>
+								<Link href="/game/mace-madness">
+									<a href="#">Mace Madness</a>
+								</Link>
+								<Link href="/game/outlaws">
+									<a href="#">Outlaws</a>
+								</Link>
+								<Link href="/game/mace-madness">
+									<a href="#">Mace Madness</a>
+								</Link>
+								<Link href="/game/outlaws">
+									<a href="#">Outlaws</a>
+								</Link>
+								<Link href="/game/mace-madness">
+									<a href="#">Mace Madness</a>
+								</Link>
+								<Link href="/game/outlaws">
+									<a href="#">Outlaws</a>
+								</Link>
+								<Link href="/game/mace-madness">
+									<a href="#">Mace Madness</a>
+								</Link>
+								<Link href="/game/outlaws">
+									<a href="#">Outlaws</a>
+								</Link>
+								<Link href="/game/mace-madness">
+									<a href="#">Mace Madness</a>
+								</Link>
+								<Link href="/game/outlaws">
+									<a href="#">Outlaws</a>
+								</Link>
 								<Link href="/game/mace-madness">
 									<a href="#">Mace Madness</a>
 								</Link>
@@ -220,16 +292,12 @@ const Menu = styled.nav`
 
 const Dropdown = styled.div`
 	overflow: hidden;
-	max-height: ${(props) => (props.dropdownOpen ? "100vw" : "0")};
-
-	transition: ${(props) =>
-		props.dropdownOpen
-			? "max-height 0.4s ease-in"
-			: "max-height 0.25s ease-out"};
 
 	a {
+		scroll-snap-align: start;
 		display: block;
 		padding: 1rem 0;
+		height: 3.5rem;
 
 		font-size: 1rem;
 
@@ -258,7 +326,34 @@ const Dropdown = styled.div`
 	}
 `
 
-const DropdownContainer = styled.div``
+const DropdownContainer = styled.div`
+	scroll-snap-type: y mandatory;
+	overflow-y: ${(props) => (props.overflow ? "scroll" : "hidden")};
+	::-webkit-scrollbar {
+		width: 4px;
+		transform: translateX(-50%);
+	}
+	::-webkit-scrollbar-track {
+		background: none;
+	}
+	::-webkit-scrollbar-thumb {
+		background: ${(props) =>
+			props.transparent ? "var(--orange)" : "#6e2cda"};
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: rgba(255, 255, 255, 0.2);
+	}
+	scrollbar-color: ${(props) =>
+			props.transparent ? "var(--orange)" : "#6e2cda"}
+		rgba(0, 0, 0, 0);
+	scrollbar-width: thin;
+	max-height: ${(props) =>
+		props.dropdownOpen ? `calc((3.5rem * ${props.maxItems}) - 2px)` : "0"};
+	transition: ${(props) =>
+		props.dropdownOpen
+			? "max-height 0.4s ease-in"
+			: "max-height 0.25s ease-out"};
+`
 
 const NavigationContainer = styled.header`
 	&.sliding {
@@ -366,16 +461,16 @@ const NavigationContainer = styled.header`
 			top: 100%;
 			transform: translateX(calc(-100% + (30vw / 5)));
 
-			transition: ${(props) =>
-					props.dropdownOpen ? "max-height 0.2s" : "max-height 0.42s"}
-				ease;
+			transition: max-height 0.4s ease-in;
 
-			max-height: none;
 			overflow: visible;
 
 			a {
 				position: relative;
 				padding: 1rem;
+
+				display: flex;
+				align-items: center;
 
 				background: ${(props) =>
 					props.transparent ? "#6e2cda" : "#D6A781"};
@@ -388,19 +483,14 @@ const NavigationContainer = styled.header`
 		}
 
 		${DropdownContainer} {
-			overflow: hidden;
-			max-height: ${(props) => (props.dropdownOpen ? "100vw" : "0")};
-			transition: ${(props) =>
-				props.dropdownOpen
-					? "max-height 0.4s ease-in"
-					: "max-height 0.25s ease-out"};
 			::before {
 				content: "";
 				position: absolute;
 				top: 0;
 				right: 0;
 
-				transform: translateY(-100%);
+				transform: translateY(-100%)
+					${(props) => (props.overflow ? `translateX(-4px)` : null)};
 
 				width: 2rem;
 				height: 2rem;

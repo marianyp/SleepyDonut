@@ -45,9 +45,13 @@ const Socials = styled.div`
 	justify-content: center;
 
 	a {
-		display: flex;
 		:not(:last-of-type) {
-			margin-right: 1.4rem;
+			margin-right: 1rem;
+		}
+		display: flex;
+
+		:hover {
+			opacity: 0.8;
 		}
 	}
 `
@@ -98,11 +102,6 @@ const BioContainer = styled.div`
 
 			img {
 				width: 1.4rem;
-			}
-			a {
-				:not(:last-of-type) {
-					margin-right: 0.8rem;
-				}
 			}
 		}
 

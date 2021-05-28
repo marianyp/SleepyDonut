@@ -84,7 +84,7 @@ export default function Game() {
 				</GameHero>
 
 				<ContributersContainer>
-					<Pill color="red">About</Pill>
+					<Pill color="red">Contributers</Pill>
 					<CustomFooting>
 						<ContributersList>
 							{contributers.map((c, index) => (
@@ -101,6 +101,10 @@ export default function Game() {
 const GlobalStyle = createGlobalStyle`
   :root {
     --padding: 2rem;
+  }
+
+  body {
+	background: #fff1d6;
   }
 
   @media (min-width: 1000px) {
@@ -124,6 +128,7 @@ const SplashImageContainer = styled.div`
 const SplashImage = styled.img`
 	width: 100%;
 	object-fit: fill;
+	user-drag: none;
 `
 
 const PlayContainer = styled.div`
@@ -162,7 +167,7 @@ const MobilePlayContainer = styled.div`
 	position: relative;
 
 	min-height: 6rem;
-	padding: 1.5rem 0;
+	padding: 2.25rem 0;
 
 	display: flex;
 	justify-content: center;

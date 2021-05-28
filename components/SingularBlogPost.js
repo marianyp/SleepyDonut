@@ -5,10 +5,21 @@ import styled from "styled-components"
 export default function SingularBlogPost({ data, short }) {
 	return (
 		<BlogContainer short={short}>
-			<Heading>
-				<Title>Some Blog Post Title</Title>
-				<DateInfo>May 25, 2021</DateInfo>
-			</Heading>
+			{short ? (
+				<Link href="/blog/1">
+					<a href="">
+						<Heading short={short}>
+							<Title>Some Random Title</Title>
+							<DateInfo>May 25, 2021</DateInfo>
+						</Heading>
+					</a>
+				</Link>
+			) : (
+				<Heading>
+					<Title>Some Blog Post Title</Title>
+					<DateInfo>May 25, 2021</DateInfo>
+				</Heading>
+			)}
 
 			<BlogContents>
 				<h4>Lorem ipsum dolor sit amet consectetur.</h4>
@@ -42,7 +53,7 @@ export default function SingularBlogPost({ data, short }) {
 				</div>
 				{short ? (
 					<ReadMoreContainer>
-						<Link href="/">
+						<Link href="/blog/something">
 							<a href="">
 								<ReadMore>Read More...</ReadMore>
 							</a>
@@ -50,7 +61,7 @@ export default function SingularBlogPost({ data, short }) {
 					</ReadMoreContainer>
 				) : (
 					<AllBlogsContainer>
-						<Link href="/blogs">
+						<Link href="/blog">
 							<a href="">
 								<AllBlogsButton>
 									<img src="/img/icons/icon-arrow-btn.svg" />
@@ -67,7 +78,7 @@ export default function SingularBlogPost({ data, short }) {
 
 const Heading = styled.h6`
 	padding: 1rem;
-	min-height: 7.5rem;
+	min-height: ${props => props.short ? '3rem' : '7.5rem'};
 
 	background: var(--red);
 	color: white;
@@ -78,17 +89,18 @@ const Heading = styled.h6`
 	text-shadow: var(--text-shadow);
 
 	display: flex;
-	flex-direction: column;
-	justify-content: center;
+	flex-direction: ${props => props.short ? 'row' : 'column'};
+	justify-content: ${props => props.short ? 'space-between' : 'center'};
 	align-items: center;
 
 	* + * {
-		margin-top: 0.5rem;
+		margin-top: ${props => props.short ? '0' : '0.5rem'};
 	}
 `
 
 const Title = styled.p`
 	font-size: 1rem;
+	max-width: 40vw;
 `
 const DateInfo = styled.p`
 	font-size: 0.8rem;
@@ -109,7 +121,6 @@ const BlogContents = styled.div`
 	}
 
 	img {
-		width: 100%;
 		width: 100%;
 		max-height: 70vh;
 		object-fit: contain;
@@ -157,6 +168,9 @@ const ReadMoreContainer = styled.div`
 
 	a {
 		text-decoration: none;
+		:hover {
+			opacity: 0.6;
+		}
 	}
 `
 const ReadMore = styled.p`
@@ -165,11 +179,15 @@ const ReadMore = styled.p`
 `
 
 const BlogContainer = styled.div`
-	max-width: 90%;
+	max-width: 60%;
 
 	box-shadow: 0 3px 6px rgba(163, 154, 137, 0.12);
 
 	margin: ${(props) => (props.short ? "2rem" : "")} auto;
+
+	& > a {
+		text-decoration: none;
+	}
 
 	@media (min-width: 1000px) {
 		${BlogContents} {
@@ -187,6 +205,12 @@ const BlogContainer = styled.div`
 				display: flex;
 				align-items: center;
 				width: 100%;
+			}
+
+			& > ${AllBlogsContainer} {
+				img {
+					width: auto;
+				}
 			}
 		}
 	}

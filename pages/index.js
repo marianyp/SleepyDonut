@@ -30,6 +30,9 @@ export default function Home() {
 
 			<GamesSection>
 				<HomeGames />
+				<GameFeature>
+					<img src="/img/mace.png" />
+				</GameFeature>
 			</GamesSection>
 
 			<Footing id="contact">
@@ -108,6 +111,7 @@ const HeroFeature = styled.div`
 const GamesSection = styled.section`
 	background: linear-gradient(var(--orange), var(--red) 200%);
 	padding-bottom: 8rem;
+	position: relative;
 `
 
 const GrungeContainer = styled.div`
@@ -169,7 +173,31 @@ const FootingContainer = styled.div`
 `
 const Waves = styled.div``
 
+const GameFeature = styled.div`
+	width: 100%;
+	height: 100%;
+
+	position: absolute;
+	top: 0;
+	left: 0;
+
+	pointer-events: none;
+
+	img {
+		height: 30vw;
+		max-height: 30%;
+		min-height: 20vw;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+
+		transform: translateY(20%) translateX(-10%);
+	}
+	z-index: 0;
+`
+
 const Footing = styled.section`
+	z-index: 10;
 	@keyframes splash-move {
 		0% {
 			background-position: 0;

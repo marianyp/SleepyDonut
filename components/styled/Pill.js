@@ -12,20 +12,25 @@ const types = {
 		color: "white",
 		shadow: "rgba(156, 50, 50, 0.37)",
 	},
+	purple: {
+		background: "linear-gradient(#AD54EC, #6E2CDA)",
+		color: "white",
+		shadow: "rgba(32, 13, 64, 0.12)",
+	},
 }
 
 const Pill = styled.div`
 	--spacing: 2rem;
-	position: absolute;
+	position: ${(props) => (props.regular ? "static" : "absolute")};
 	top: 0;
 	left: 50%;
 
-	transform: translate(-50%, -50%);
+	transform: ${(props) => (props.regular ? "" : "translate(-50%, -50%)")};
 
-	display: flex;
+	display: inline-flex;
 	align-items: center;
 
-	height: 3rem;
+	min-height: 3rem;
 
 	border-radius: 3.75rem;
 
@@ -37,8 +42,12 @@ const Pill = styled.div`
 
 	font-weight: bold;
 
-	padding: 0 var(--spacing);
+	padding: ${(props) =>
+		props.large ? "1rem calc(var(--spacing))" : "0 var(--spacing)"};
+	font-size: ${(props) => (props.large ? "1.5rem" : "1rem")};
+
 	z-index: 90;
+	user-select: none;
 `
 
 export default Pill

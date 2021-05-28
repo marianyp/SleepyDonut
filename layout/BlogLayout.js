@@ -24,7 +24,7 @@ const DonutBackground = styled.div`
 	width: 100%;
 	height: 100%;
 	background: url("/img/logo/logo-standalone.png");
-	background-size: 150%;
+	background-size: 50%;
 	background-repeat: no-repeat;
 	background-position: center;
 
