@@ -78,7 +78,7 @@ export default function SingularBlogPost({ data, short }) {
 
 const Heading = styled.h6`
 	padding: 1rem;
-	min-height: ${props => props.short ? '3rem' : '7.5rem'};
+	min-height: ${(props) => (props.short ? "3rem" : "7.5rem")};
 
 	background: var(--red);
 	color: white;
@@ -89,12 +89,12 @@ const Heading = styled.h6`
 	text-shadow: var(--text-shadow);
 
 	display: flex;
-	flex-direction: ${props => props.short ? 'row' : 'column'};
-	justify-content: ${props => props.short ? 'space-between' : 'center'};
+	flex-direction: ${(props) => (props.short ? "row" : "column")};
+	justify-content: ${(props) => (props.short ? "space-between" : "center")};
 	align-items: center;
 
 	* + * {
-		margin-top: ${props => props.short ? '0' : '0.5rem'};
+		margin-top: ${(props) => (props.short ? "0" : "0.5rem")};
 	}
 `
 
@@ -179,7 +179,7 @@ const ReadMore = styled.p`
 `
 
 const BlogContainer = styled.div`
-	max-width: 60%;
+	max-width: 95%;
 
 	box-shadow: 0 3px 6px rgba(163, 154, 137, 0.12);
 
@@ -190,6 +190,8 @@ const BlogContainer = styled.div`
 	}
 
 	@media (min-width: 1000px) {
+		max-width: 60%;
+
 		${BlogContents} {
 			padding: 2rem;
 

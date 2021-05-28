@@ -26,14 +26,21 @@ export default function DropdownLink({ platforms, logo, children, className }) {
 
 const Logo = styled.img`
 	width: 15%;
+	object-fit: scale-down;
 `
 
 const Platform = styled.img`
-	height: 30%;
+	width: 30%;
 	display: flex;
 
-	:not(:last-of-type) {
-		margin-right: 0.8vw;
+	margin-right: clamp(1rem, 0.8vw, 0.8vw);
+
+	@media (min-width: 1000px) {
+		:not(:last-of-type) {
+			margin-right: clamp(1rem, 0.8vw, 0.8vw);
+		}
+		height: 30%;
+		width: auto;
 	}
 `
 
