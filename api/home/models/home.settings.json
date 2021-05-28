@@ -1,0 +1,27 @@
+{
+  "kind": "singleType",
+  "collectionName": "homes",
+  "info": {
+    "name": "Home",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Tagline": {
+      "type": "string"
+    },
+    "Biography": {
+      "type": "text"
+    },
+    "SubscribeEnabled": {
+      "type": "boolean",
+      "default": true,
+      "required": true
+    }
+  }
+}

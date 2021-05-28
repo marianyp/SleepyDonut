@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_socials_member_socials",
+  "info": {
+    "name": "MemberSocials",
+    "icon": "portrait"
+  },
+  "options": {},
+  "attributes": {
+    "Link": {
+      "type": "string"
+    },
+    "Icon": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    }
+  }
+}

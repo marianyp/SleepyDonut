@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_contributers_contributers",
+  "info": {
+    "name": "Contributers",
+    "icon": "users",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "TeamMember": {
+      "model": "team-members"
+    },
+    "Role": {
+      "type": "string"
+    }
+  }
+}
