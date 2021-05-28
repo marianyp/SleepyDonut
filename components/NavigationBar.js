@@ -5,6 +5,7 @@ import { useRouter } from "next/router"
 import styled from "styled-components"
 import { HeroContext } from "../context/HeroContext"
 import Router from "next/router"
+import DropdownLink from "./DropdownLink"
 
 export default function NavigationBar() {
 	const router = useRouter()
@@ -155,55 +156,13 @@ export default function NavigationBar() {
 								overflow={overflow}
 								maxItems={maxItemsShown}
 								dropdownOpen={dropdownOpen}
+								transparent={transparent}
 							>
-								<Link href="/game/mace-madness">
-									<a href="#">Mace Madness</a>
-								</Link>
-								<Link href="/game/outlaws">
-									<a href="#">Outlaws</a>
-								</Link>
-								<Link href="/game/mace-madness">
-									<a href="#">Mace Madness</a>
-								</Link>
-								<Link href="/game/outlaws">
-									<a href="#">Outlaws</a>
-								</Link>
-								<Link href="/game/mace-madness">
-									<a href="#">Mace Madness</a>
-								</Link>
-								<Link href="/game/outlaws">
-									<a href="#">Outlaws</a>
-								</Link>
-								<Link href="/game/mace-madness">
-									<a href="#">Mace Madness</a>
-								</Link>
-								<Link href="/game/outlaws">
-									<a href="#">Outlaws</a>
-								</Link>
-								<Link href="/game/mace-madness">
-									<a href="#">Mace Madness</a>
-								</Link>
-								<Link href="/game/outlaws">
-									<a href="#">Outlaws</a>
-								</Link>
-								<Link href="/game/mace-madness">
-									<a href="#">Mace Madness</a>
-								</Link>
-								<Link href="/game/outlaws">
-									<a href="#">Outlaws</a>
-								</Link>
-								<Link href="/game/mace-madness">
-									<a href="#">Mace Madness</a>
-								</Link>
-								<Link href="/game/outlaws">
-									<a href="#">Outlaws</a>
-								</Link>
-								<Link href="/game/mace-madness">
-									<a href="#">Mace Madness</a>
-								</Link>
-								<Link href="/game/outlaws">
-									<a href="#">Outlaws</a>
-								</Link>
+								<StyledDropdownLink platforms={["pc", "mobile"]}>
+									Mace Madness
+								</StyledDropdownLink>
+								<StyledDropdownLink platforms={["pc", "mobile"]}>Outlaws</StyledDropdownLink>
+								
 							</DropdownContainer>
 						</Dropdown>
 					</li>
@@ -292,43 +251,11 @@ const Menu = styled.nav`
 
 const Dropdown = styled.div`
 	overflow: hidden;
-
-	a {
-		scroll-snap-align: start;
-		display: block;
-		padding: 1rem 0;
-		height: 3.5rem;
-
-		font-size: 1rem;
-
-		background: #d6a781;
-
-		&:hover {
-			color: rgba(255, 255, 255, 0.6);
-		}
-
-		&:not(:last-of-type) {
-			position: relative;
-
-			&::after {
-				content: "";
-
-				position: absolute;
-				bottom: 0;
-				display: block;
-
-				width: 100%;
-				height: 2px;
-
-				background: rgba(0, 0, 0, 0.08);
-			}
-		}
-	}
 `
 
 const DropdownContainer = styled.div`
 	scroll-snap-type: y mandatory;
-	overflow-y: ${(props) => (props.overflow ? "scroll" : "hidden")};
+	overflow-y: ${(props) => (props.overflow === 'true' ? "scroll" : "hidden")};
 	::-webkit-scrollbar {
 		width: 4px;
 		transform: translateX(-50%);
@@ -354,6 +281,8 @@ const DropdownContainer = styled.div`
 			? "max-height 0.4s ease-in"
 			: "max-height 0.25s ease-out"};
 `
+
+const StyledDropdownLink = styled(DropdownLink)``
 
 const NavigationContainer = styled.header`
 	&.sliding {
@@ -391,7 +320,7 @@ const NavigationContainer = styled.header`
 		height: 50%;
 		z-index: 10;
 	}
-	img {
+	& > a img {
 		height: 100%;
 
 		opacity: ${(props) =>
@@ -465,7 +394,7 @@ const NavigationContainer = styled.header`
 
 			overflow: visible;
 
-			a {
+			${StyledDropdownLink} {
 				position: relative;
 				padding: 1rem;
 
@@ -474,7 +403,7 @@ const NavigationContainer = styled.header`
 
 				background: ${(props) =>
 					props.transparent ? "#6e2cda" : "#D6A781"};
-				transition: 0.4s background ease;
+				transition: 0.2s background ease;
 
 				&::after {
 					transform: translateX(-1rem);
@@ -490,7 +419,7 @@ const NavigationContainer = styled.header`
 				right: 0;
 
 				transform: translateY(-100%)
-					${(props) => (props.overflow ? `translateX(-4px)` : null)};
+					${(props) => (props.overflow === 'true' ? `translateX(-6px)` : null)};
 
 				width: 2rem;
 				height: 2rem;

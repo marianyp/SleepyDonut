@@ -185,8 +185,8 @@ const GameFeature = styled.div`
 
 	img {
 		height: 30vw;
-		max-height: 30%;
-		min-height: 20vw;
+		max-height: 25vh;
+		min-height: 5vw;
 		position: absolute;
 		bottom: 0;
 		right: 0;

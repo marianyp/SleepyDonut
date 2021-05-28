@@ -44,9 +44,9 @@ const OverlayContainer = styled.div`
 
 	position: absolute;
 
-	background-image: url("/img/collage.png");
-	background-size: 100%;
-	background-repeat: repeat-y;
+	background-image: linear-gradient(rgba(237, 131, 131, 0.69), transparent), url("/img/collage.png");
+	background-size: 100% 10%, 100%;
+	background-repeat: no-repeat, repeat-y;
 	background-position: top;
 
 	opacity: 0.56;
