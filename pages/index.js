@@ -4,9 +4,11 @@ import HomeBio from "../components/HomeBio"
 import HomeGames from "../components/HomeGames"
 import HomeSubscribe from "../components/HomeSubscribe"
 import ScrollDown from "../components/ScrollDown"
+import makeRealURI from "../helpers/makeRealURI"
 import useHero from "../hooks/useHero"
+import useQuery from "../hooks/useQuery"
 
-export default function Home() {
+export default function Home({ homeData, ownerData, gamesData }) {
 	const heroObserverRef = useHero()
 
 	return (
@@ -22,16 +24,18 @@ export default function Home() {
 						alt="SleepyDonut Logo"
 					/>
 
-					<div>We Make Games For Fun!</div>
+					<div>{homeData["Tagline"] ?? null}</div>
 				</HeroFeature>
 
 				<ScrollDown />
 			</Hero>
 
 			<GamesSection>
-				<HomeGames />
+				<HomeGames data={{ gamesData }} />
 				<GameFeature>
-					<img src="/img/mace.png" />
+					<img
+						src={makeRealURI(homeData["GamesFeature"]?.url) ?? null}
+					/>
 				</GameFeature>
 			</GamesSection>
 
@@ -43,16 +47,37 @@ export default function Home() {
 				</GrungeContainer>
 				<FootingContainer>
 					<FootingWrapper>
-						<HomeBio />
+						<HomeBio data={{ homeData, ownerData }} />
+						{homeData["SubscribeEnabled"] ? (
+							<>
+								<hr />
 
-						<hr />
-
-						<HomeSubscribe />
+								<HomeSubscribe />
+							</>
+						) : null}
 					</FootingWrapper>
 				</FootingContainer>
 			</Footing>
 		</>
 	)
+}
+
+export async function getStaticProps() {
+	let home = {}
+	let owner = {}
+	let games = []
+	try {
+		home = await useQuery("home")
+
+		const members = await useQuery("team-members")
+		owner = await members.find((m) => m["Owner"])
+
+		games = await useQuery("games")
+	} catch (err) {}
+
+	return {
+		props: { homeData: home, ownerData: owner, gamesData: games },
+	}
 }
 
 const Hero = styled.main`

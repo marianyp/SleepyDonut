@@ -6,18 +6,13 @@ import Pill from "../../components/styled/Pill"
 import useHero from "../../hooks/useHero"
 import MemberAvatar from "../../components/MemberAvatar"
 import GameContributer from "../../components/GameContributer"
+import useQuery from "../../hooks/useQuery"
+import makeRealURI from "../../helpers/makeRealURI"
 
-export default function Game() {
+export default function Game({ gameData }) {
 	const heroObserverRef = useHero()
 
-	const temp = {
-		img: "/img/crychair.png",
-		name: "Evan Malmud",
-		role: "developer",
-		socials: ["twitter", "instagram", "youtube", "custom"],
-	}
-
-	let contributers = [temp, temp, temp]
+	console.log(gameData)
 
 	return (
 		<>
@@ -29,65 +24,63 @@ export default function Game() {
 			<PageContainer>
 				<GameHero>
 					<SplashImageContainer ref={heroObserverRef}>
-						<SplashImage src="/img/banner.png" />
+						<SplashImage
+							src={makeRealURI(gameData["BannerImage"]?.url)}
+						/>
 						<PlayContainer>
-							<a href="#">
-								<img src="/img/btn-itch.svg" />
-							</a>
-							<a href="#">
-								<img src="/img/btn-steam.svg" />
-							</a>
+							{gameData["ItchLink"] ? (
+								<a href={gameData["ItchLink"] ?? null} target="_blank">
+									<img src="/img/btn-itch.svg" />
+								</a>
+							) : null}
+							{gameData["SteamLink"] ? (
+								<a href={gameData["SteamLink"] ?? null} target="_blank">
+									<img src="/img/btn-steam.svg" />
+								</a>
+							) : null}
 						</PlayContainer>
 					</SplashImageContainer>
 					<MobilePlayContainer>
 						<Pill color="orange">About</Pill>
 
-						<MobilePlayButtonContainer href="#">
-							<img src="/img/icons/icon-itch.io-colored.svg" />
-						</MobilePlayButtonContainer>
-						<MobilePlayButtonContainer href="#">
-							<img src="/img/icons/icon-steam-colored.svg" />
-						</MobilePlayButtonContainer>
+						{gameData["ItchLink"] ? (
+							<MobilePlayButtonContainer
+								href={gameData["ItchLink"]}
+								target="_blank"
+							>
+								<img src="/img/icons/icon-itch.io-colored.svg" />
+							</MobilePlayButtonContainer>
+						) : null}
+
+						{gameData["SteamLink"] ? (
+							<MobilePlayButtonContainer
+								href={gameData["SteamLink"]}
+								target="_blank"
+							>
+								<img src="/img/icons/icon-steam-colored.svg" />
+							</MobilePlayButtonContainer>
+						) : null}
 					</MobilePlayContainer>
 					<AboutGame>
 						<Pill color="orange">About</Pill>
 						<TextContainer>
-							<p>
-								Lorem ipsum dolor, sit amet consectetur
-								adipisicing elit. Beatae laborum facilis
-								assumenda pariatur minima dolor iste nihil quos
-								voluptas mollitia? Placeat quae eveniet
-								obcaecati officiis maiores, vel repellendus est
-								repellat fuga dolore.
-							</p>
-							<p>
-								Lorem ipsum dolor, sit amet consectetur
-								adipisicing elit. Beatae laborum facilis
-								assumenda pariatur minima dolor iste nihil quos
-								voluptas mollitia? Placeat quae eveniet
-								obcaecati officiis maiores, vel repellendus est
-								repellat fuga dolore.
-							</p>
-							<p>
-								Lorem ipsum dolor, sit amet consectetur
-								adipisicing elit. Beatae laborum facilis
-								assumenda pariatur minima dolor iste nihil quos
-								voluptas mollitia? Placeat quae eveniet
-								obcaecati officiis maiores, vel repellendus est
-								repellat fuga dolore.
-							</p>
+							<p>{gameData["About"]}</p>
 						</TextContainer>
 					</AboutGame>
-					<GameFeature>
-						<img src="/img/mace.png" />
-					</GameFeature>
+					{gameData["GameFeature"] ? (
+						<GameFeature>
+							<img
+								src={makeRealURI(gameData["GameFeature"].url)}
+							/>
+						</GameFeature>
+					) : null}
 				</GameHero>
 
 				<ContributersContainer>
 					<Pill color="red">Contributers</Pill>
 					<CustomFooting>
 						<ContributersList>
-							{contributers.map((c, index) => (
+							{gameData["TeamMembers"]?.map((c, index) => (
 								<GameContributer data={c} key={index} />
 							))}
 						</ContributersList>
@@ -96,6 +89,33 @@ export default function Game() {
 			</PageContainer>
 		</>
 	)
+}
+
+export async function getStaticPaths() {
+	let possibleSlugs = []
+	try {
+		const games = await useQuery("games")
+		possibleSlugs = games.map((game) => game["Slug"])
+	} catch {}
+
+	return {
+		paths: possibleSlugs.map((slug) => ({ params: { name: slug } })),
+		fallback: false,
+	}
+}
+
+export async function getStaticProps({ params }) {
+	const { name } = params
+
+	let thisGame = {}
+	try {
+		const games = await useQuery("games")
+		thisGame = games.find((game) => game["Slug"] == name)
+	} catch {}
+
+	return {
+		props: { gameData: thisGame },
+	}
 }
 
 const GlobalStyle = createGlobalStyle`
@@ -136,7 +156,6 @@ const PlayContainer = styled.div`
 	position: absolute;
 	right: 0;
 	bottom: 0;
-	min-width: 20rem;
 	min-height: 4.65rem;
 	background: rgba(0, 0, 0, 0.65);
 	border-top-left-radius: 16px;
@@ -197,6 +216,9 @@ const AboutGame = styled.section`
 `
 
 const TextContainer = styled.div`
+	p {
+		white-space: pre-wrap;
+	}
 	p + p {
 		margin-top: 2rem;
 	}
@@ -246,6 +268,7 @@ const PageContainer = styled.div`
 
 		${PlayContainer} {
 			display: flex;
+			justify-content: flex-end;
 		}
 
 		${MobilePlayContainer} {

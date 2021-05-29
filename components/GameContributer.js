@@ -1,20 +1,22 @@
 import React from "react"
 import styled from "styled-components"
+import { BORING_ICON_ENUM } from "../helpers/icons"
+import makeRealURI from "../helpers/makeRealURI"
 import MemberAvatar from "./MemberAvatar"
 
-export default function GameContributer({ data }) {
-	const { img, name, role, socials } = data
-
+export default function GameContributer({ data, size }) {
 	return (
 		<ContributerContainer>
-			<MemberAvatar src={img} />
-			<Name>{name}</Name>
-			<Role>{role}</Role>
+			<MemberAvatar src={makeRealURI(data["Avatar"]?.url)} size={size} />
+			<Name>{data["Name"] ?? null}</Name>
+			<Role>{data["Role"] ?? null}</Role>
 			<SocialContainer>
-				{socials.map((social, index) => (
+				{data["MemberSocials"]?.map((social, index) => (
 					<Social key={index}>
-						<a href="#" target="_blank">
-							<img src="/img/icons/icon-footer-email.svg" />
+						<a href={social["Link"]} target="_blank">
+							<img
+								src={BORING_ICON_ENUM[social["Icon"].toUpperCase()]}
+							/>
 						</a>
 					</Social>
 				))}
@@ -65,6 +67,10 @@ const Role = styled.h6`
 `
 
 const Social = styled.div`
+	img {
+		width: 1rem;
+		height: 1rem;
+	}
 	& + & {
 		margin-left: 1rem;
 	}

@@ -3,8 +3,8 @@ import styled from "styled-components"
 
 export default function HomeGame({ name, img, platform, link }) {
 	const PLATFORM_ENUM = {
-		itch: "./img/icons/icon-itch.svg",
-		steam: "STEAM",
+		itch: "/img/icons/icon-footer-itch.svg",
+		steam: "/img/icons/icon-footer-steam.svg",
 	}
 	Object.freeze(PLATFORM_ENUM)
 
@@ -15,12 +15,12 @@ export default function HomeGame({ name, img, platform, link }) {
 	}
 
 	return (
-		<Link href="/">
+		<Link href={`/game/${link}`}>
 			<Clickable>
 				<GameContainer img={img} icon={PLATFORM_ENUM[platform]}>
 					<h4>{name}</h4>
 					<div>
-						<i></i>
+						{platform ? <i></i> : null}
 						Play Now
 					</div>
 				</GameContainer>
@@ -73,7 +73,7 @@ const GameContainer = styled.div`
 	h4 {
 		text-transform: uppercase;
 		font-weight: 900;
-		font-size: 1.4rem;
+		font-size: 1.65rem;
 	}
 
 	div {
@@ -89,8 +89,8 @@ const GameContainer = styled.div`
 
 			background: url("${(props) => props.icon}");
 			background-repeat: no-repeat;
-			background-position: center -20%;
-			background-size: 120%;
+			background-position: center;
+			background-size: 50%;
 		}
 
 		background: none;
@@ -99,7 +99,7 @@ const GameContainer = styled.div`
 
 		text-decoration: none;
 
-		font-size: 0.75rem;
+		font-size: 1rem;
 
 		font-weight: bold;
 

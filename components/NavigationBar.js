@@ -6,6 +6,11 @@ import styled from "styled-components"
 import { HeroContext } from "../context/HeroContext"
 import Router from "next/router"
 import DropdownLink from "./DropdownLink"
+import makeRealURI from "../helpers/makeRealURI"
+
+import data from "../helpers/data.preval"
+
+const { gameData } = data
 
 export default function NavigationBar() {
 	const router = useRouter()
@@ -158,11 +163,23 @@ export default function NavigationBar() {
 								dropdownOpen={dropdownOpen}
 								transparent={transparent}
 							>
-								<StyledDropdownLink platforms={["pc", "mobile"]}>
-									Mace Madness
-								</StyledDropdownLink>
-								<StyledDropdownLink platforms={["pc", "mobile"]}>Outlaws</StyledDropdownLink>
-								
+								{gameData?.map((game, key) => (
+									<StyledDropdownLink
+										platforms={[
+											game["Platform"]["PC"]
+												? "pc"
+												: null,
+											game["Platform"]["Mobile"]
+												? "mobile"
+												: null,
+										]}
+										key={key}
+										logo={makeRealURI(game["Icon"]?.url)}
+										link={`/game/${game["Slug"]}`}
+									>
+										{game["Name"]}
+									</StyledDropdownLink>
+								))}
 							</DropdownContainer>
 						</Dropdown>
 					</li>
@@ -255,7 +272,7 @@ const Dropdown = styled.div`
 
 const DropdownContainer = styled.div`
 	scroll-snap-type: y mandatory;
-	overflow-y: ${(props) => (props.overflow === 'true' ? "scroll" : "hidden")};
+	overflow-y: ${(props) => (props.overflow === "true" ? "scroll" : "hidden")};
 	::-webkit-scrollbar {
 		width: 4px;
 		transform: translateX(-50%);
@@ -419,7 +436,8 @@ const NavigationContainer = styled.header`
 				right: 0;
 
 				transform: translateY(-100%)
-					${(props) => (props.overflow === 'true' ? `translateX(-6px)` : null)};
+					${(props) =>
+						props.overflow === "true" ? `translateX(-6px)` : null};
 
 				width: 2rem;
 				height: 2rem;

@@ -2,11 +2,11 @@ import Link from "next/link"
 import React from "react"
 import styled from "styled-components"
 
-export default function DropdownLink({ platforms, logo, children, className }) {
+export default function DropdownLink({ children, className, platforms, logo, link  }) {
 	return (
-		<Link href="/game/outlaws">
+		<Link href={link || '/'}>
 			<StyledLink href="" className={className}>
-				<Logo src={logo || "/img/game_logos/Game_Title.png"} />
+				<Logo src={logo} />
 
 				<div>{children}</div>
 

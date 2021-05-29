@@ -3,21 +3,26 @@ import React from "react"
 import styled from "styled-components"
 
 export default function SingularBlogPost({ data, short }) {
+	const dt = new Date(data["PublishDate"])
 	return (
 		<BlogContainer short={short}>
 			{short ? (
 				<Link href="/blog/1">
 					<a href="">
 						<Heading short={short}>
-							<Title>Some Random Title</Title>
+							<Title>{data["Title"]}</Title>
 							<DateInfo>May 25, 2021</DateInfo>
 						</Heading>
 					</a>
 				</Link>
 			) : (
 				<Heading>
-					<Title>Some Blog Post Title</Title>
-					<DateInfo>May 25, 2021</DateInfo>
+					<Title>{data["Title"]}</Title>
+					<DateInfo>{`${dt.toLocaleDateString("default", {
+						year: "numeric",
+						month: "long",
+						day: "numeric",
+					})}`}</DateInfo>
 				</Heading>
 			)}
 
@@ -148,7 +153,7 @@ const AllBlogsButton = styled.button`
 
 	cursor: pointer;
 
-	display: flex;
+	display: inline-flex;
 	align-items: center;
 
 	img {
@@ -176,6 +181,7 @@ const ReadMoreContainer = styled.div`
 const ReadMore = styled.p`
 	color: var(--red);
 	font-weight: bold;
+	display: inline-flex;
 `
 
 const BlogContainer = styled.div`

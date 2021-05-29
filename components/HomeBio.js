@@ -1,30 +1,29 @@
 import styled from "styled-components"
+import { COLORED_ICON_ENUM } from "../helpers/icons"
+import makeRealURI from "../helpers/makeRealURI"
 import MemberAvatar from "./MemberAvatar"
 
-export default function HomeBio() {
+export default function HomeBio({ data }) {
+	const {homeData, ownerData} = data
+
 	return (
 		<BioContainer>
-			<MemberAvatar src="/img/crychair.png" size="10rem" />
+			<MemberAvatar src={makeRealURI(ownerData["Avatar"]?.url)} size="10rem" />
 			<InfoContainer>
-				<h5>Founder | Evan Malmud</h5>
-				<p>
-					A paragraph of text with an unassigned link. Explain things
-					about the website. That I do Game Jams and to contact me
-					with any questions! A second row of text with a web link.
-				</p>
+				<h5>Founder | {ownerData["Name"] ?? null}</h5>
+				<p>{homeData["Biography"] ?? null}</p>
 				<Socials>
-					<a href="#">
-						<img src="./img/icons/icon-discord.svg" />
-					</a>
-					<a href="#">
-						<img src="./img/icons/icon-twitter.svg" />
-					</a>
-					<a href="#">
-						<img src="./img/icons/icon-twitch.svg" />
-					</a>
-					<a href="#">
-						<img src="./img/icons/icon-email-cartoon.svg" />
-					</a>
+					{ownerData["MemberSocials"]?.map((social, index) => (
+						<a href="#" key={index}>
+							<img
+								src={
+									COLORED_ICON_ENUM[
+										social["Icon"].toUpperCase()
+									] ?? null
+								}
+							/>
+						</a>
+					))}
 				</Socials>
 			</InfoContainer>
 		</BioContainer>
@@ -59,6 +58,7 @@ const Socials = styled.div`
 const BioContainer = styled.div`
 	width: 100%;
 	margin: 0 auto;
+	margin-left: inherit;
 
 	display: flex;
 	align-items: center;
