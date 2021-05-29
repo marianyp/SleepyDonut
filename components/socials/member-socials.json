@@ -2,7 +2,8 @@
   "collectionName": "components_socials_member_socials",
   "info": {
     "name": "MemberSocials",
-    "icon": "portrait"
+    "icon": "portrait",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -10,16 +11,19 @@
       "type": "string"
     },
     "Icon": {
-      "collection": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos"
+      "type": "enumeration",
+      "enum": [
+        "Twitter",
+        "Twitch",
+        "Email",
+        "Discord",
+        "Itch",
+        "GitHub",
+        "Youtube",
+        "Custom"
       ],
-      "plugin": "upload",
-      "required": false,
-      "pluginOptions": {}
+      "required": true,
+      "default": "Itch"
     }
   }
 }

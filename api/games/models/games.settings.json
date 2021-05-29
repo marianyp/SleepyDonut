@@ -41,7 +41,8 @@
     },
     "Slug": {
       "type": "uid",
-      "targetField": "Name"
+      "targetField": "Name",
+      "required": true
     },
     "About": {
       "type": "text"
@@ -76,10 +77,14 @@
       "required": false,
       "pluginOptions": {}
     },
-    "Contributers": {
+    "TeamMembers": {
+      "collection": "team-members"
+    },
+    "Platform": {
       "type": "component",
-      "repeatable": true,
-      "component": "contributers.contributers"
+      "repeatable": false,
+      "component": "platform.platform",
+      "required": true
     }
   }
 }

@@ -38,7 +38,7 @@
     "Owner": {
       "type": "boolean",
       "default": false,
-      "required": true,
+      "required": false,
       "unique": false
     }
   }

@@ -1,8 +1,9 @@
 {
   "kind": "collectionType",
-  "collectionName": "blogs",
+  "collectionName": "blog",
   "info": {
-    "name": "Blog"
+    "name": "Blog",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -24,6 +25,11 @@
     },
     "Author": {
       "model": "team-members"
+    },
+    "Slug": {
+      "type": "uid",
+      "targetField": "Title",
+      "required": true
     }
   }
 }
