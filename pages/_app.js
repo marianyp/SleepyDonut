@@ -1,6 +1,6 @@
 import { motion } from "framer-motion"
 import "normalize.css"
-import "../assets/css/globals.scss"
+import "../css/globals.scss"
 import CustomHead from "../components/CustomHead"
 import Footer from "../components/Footer"
 import NavigationBar from "../components/NavigationBar"

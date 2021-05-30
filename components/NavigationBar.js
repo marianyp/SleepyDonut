@@ -10,7 +10,9 @@ import makeRealURI from "../helpers/makeRealURI"
 
 import data from "../helpers/nav.preval"
 
-const { gameData } = data
+let { gameData } = data
+
+gameData = gameData ?? []
 
 export default function NavigationBar() {
 	const router = useRouter()
