@@ -12,13 +12,8 @@ import makeRealURI from "../../helpers/makeRealURI"
 export default function Game({ gameData }) {
 	const heroObserverRef = useHero()
 
-	console.log(gameData)
-
 	return (
 		<>
-			<Head>
-				<title>SleepyDonut</title>
-			</Head>
 			<GlobalStyle />
 
 			<PageContainer>
@@ -81,7 +76,7 @@ export default function Game({ gameData }) {
 					<CustomFooting>
 						<ContributersList>
 							{gameData["TeamMembers"]?.map((c, index) => (
-								<GameContributer data={c} key={index} />
+								<GameContributer data={c} key={index} size={gameData["TeamMembers"].length > 4 ? '12vw' : null} margin={gameData["TeamMembers"].length > 4 ? '4rem' : null} />
 							))}
 						</ContributersList>
 					</CustomFooting>
@@ -136,7 +131,6 @@ const GlobalStyle = createGlobalStyle`
 
 const GameHero = styled.main`
 	position: relative;
-	min-height: 100vh;
 	background: #fff1d6;
 `
 
@@ -147,7 +141,7 @@ const SplashImageContainer = styled.div`
 
 const SplashImage = styled.img`
 	width: 100%;
-	object-fit: fill;
+	object-fit: cover;
 	user-drag: none;
 `
 
@@ -226,7 +220,6 @@ const TextContainer = styled.div`
 
 const ContributersContainer = styled.section`
 	position: relative;
-	min-height: 50vh;
 
 	z-index: 20;
 `
@@ -235,6 +228,30 @@ const ContributersList = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+
+	overflow-x: auto;
+
+	scroll-snap-type: x block;
+
+	::-webkit-scrollbar {
+		height: 8px;
+	}
+	::-webkit-scrollbar-track {
+		background: none;
+	}
+	::-webkit-scrollbar-thumb {
+		background: rgba(0, 0, 0, 0.2);
+		border-radius: 8px;
+		cursor: pointer;
+	}
+	::-webkit-scrollbar-thumb:hover {
+		background: rgba(0, 0, 0, 0.05);
+	}
+	scrollbar-color: rgba(0, 0, 0, 0.2)
+		rgba(0, 0, 0, 0);
+	scrollbar-width: thin;
+
+	padding-bottom: 1rem;
 `
 
 const GameFeature = styled.div`

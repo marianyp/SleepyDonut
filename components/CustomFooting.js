@@ -1,9 +1,9 @@
 import styled from "styled-components"
 
-export default function CustomFooting({ children, waves }) {
+export default function CustomFooting({ children, waves, className }) {
 	return (
 		<>
-			<Footing waves={waves}>
+			<Footing waves={waves} className={className}>
 				<Waves></Waves>
 				<GrungeContainer>
 					<Grunge />
@@ -65,7 +65,7 @@ const FootingContainer = styled.div`
 
 	width: 100%;
 
-	padding: 6rem 0;
+	padding: 2rem 0;
 
 	hr {
 		width: 100%;
@@ -139,7 +139,7 @@ const Footing = styled.section`
 			padding: 0;
 			display: flex;
 
-			padding: 4rem 0;
+			padding: 2rem 0;
 
 			h5 {
 				display: inline-block;
@@ -161,7 +161,7 @@ const Footing = styled.section`
 			height: 100%;
 
 			background-image: url("/img/waves.svg");
-			background-size: 70%;
+			background-size: contain;
 			background-repeat: no-repeat;
 			background-position: 0% 100%;
 			transform: scaleX(-1);

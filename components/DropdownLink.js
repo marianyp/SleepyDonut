@@ -2,9 +2,15 @@ import Link from "next/link"
 import React from "react"
 import styled from "styled-components"
 
-export default function DropdownLink({ children, className, platforms, logo, link  }) {
+export default function DropdownLink({
+	children,
+	className,
+	platforms,
+	logo,
+	link,
+}) {
 	return (
-		<Link href={link || '/'}>
+		<Link href={link || "/"}>
 			<StyledLink href="" className={className}>
 				<Logo src={logo} />
 
@@ -25,7 +31,7 @@ export default function DropdownLink({ children, className, platforms, logo, lin
 }
 
 const Logo = styled.img`
-	width: 15%;
+	height: 100%;
 	object-fit: scale-down;
 `
 

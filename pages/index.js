@@ -13,13 +13,9 @@ export default function Home({ homeData, ownerData, gamesData }) {
 
 	return (
 		<>
-			<Head>
-				<title>SleepyDonut</title>
-			</Head>
-
 			<Hero ref={heroObserverRef}>
 				<HeroFeature>
-					<img
+					<HeroImg
 						src="/img/logo/logo-vertical.png"
 						alt="SleepyDonut Logo"
 					/>
@@ -130,6 +126,14 @@ const HeroFeature = styled.div`
 		text-shadow: var(--text-shadow);
 
 		box-shadow: 0 3px 6px rgba(148, 82, 82, 0.32);
+	}
+`
+
+const HeroImg = styled.img`
+	animation: pop 1s ease;
+	@keyframes pop {
+		from {transform: scale(0)}
+		to {transform: scale(1)}
 	}
 `
 
@@ -311,7 +315,7 @@ const Footing = styled.section`
 			height: 100%;
 
 			background-image: url("/img/waves.svg");
-			background-size: 70%;
+			background-size: contain;
 			background-repeat: no-repeat;
 			background-position: 0% 100%;
 		}

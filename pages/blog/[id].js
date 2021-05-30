@@ -1,5 +1,4 @@
 import Head from "next/head"
-import Link from "next/link"
 import React from "react"
 import styled, { createGlobalStyle } from "styled-components"
 import SingularBlogPost from "../../components/SingularBlogPost"
@@ -12,9 +11,6 @@ import useQuery from "../../hooks/useQuery"
 export default function BlogPost({ postData }) {
 	return (
 		<>
-			<Head>
-				<title>SleepyDonut</title>
-			</Head>
 			<GlobalStyle />
 
 			<StyledLayout>
@@ -23,9 +19,9 @@ export default function BlogPost({ postData }) {
 
 			<AuthorContainer>
 				<Pill color="red">Author</Pill>
-				<CustomFooting>
-					<GameContributer data={postData["Author"]} size="8rem" />
-				</CustomFooting>
+				<StyledCustomFooting>
+					<GameContributer data={postData["Author"]} size="8rem" row />
+				</StyledCustomFooting>
 			</AuthorContainer>
 		</>
 	)
@@ -68,6 +64,12 @@ const GlobalStyle = createGlobalStyle`
     	--padding: 4rem;
   	}
   }
+`
+
+const StyledCustomFooting = styled(CustomFooting)`
+	& > div:last-of-type {
+		padding: 2rem 0;
+	}
 `
 
 const StyledLayout = styled(BlogLayout)`

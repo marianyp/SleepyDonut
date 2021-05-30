@@ -1,17 +1,29 @@
 import Link from "next/link"
 import React from "react"
 import styled from "styled-components"
+import useParseMd from "../hooks/useParseMd"
+import trimHtml from "trim-html"
 
 export default function SingularBlogPost({ data, short }) {
-	const dt = new Date(data["PublishDate"])
+	const dt = new Date(data["created_at"])
+	let theContent = useParseMd(data["Content"])
+	if (short) {
+		theContent = trimHtml(theContent, {
+			limit: 1750,
+		})
+	}
 	return (
 		<BlogContainer short={short}>
 			{short ? (
-				<Link href="/blog/1">
+				<Link href={`/blog/${data["Slug"]}`}>
 					<a href="">
 						<Heading short={short}>
 							<Title>{data["Title"]}</Title>
-							<DateInfo>May 25, 2021</DateInfo>
+							<DateInfo>{`${dt.toLocaleDateString("default", {
+								year: "numeric",
+								month: "long",
+								day: "numeric",
+							})}`}</DateInfo>
 						</Heading>
 					</a>
 				</Link>
@@ -27,38 +39,14 @@ export default function SingularBlogPost({ data, short }) {
 			)}
 
 			<BlogContents>
-				<h4>Lorem ipsum dolor sit amet consectetur.</h4>
-				<p>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit.
-					Corrupti temporibus officiis rem laudantium placeat
-					inventore, veritatis veniam nam nulla sit culpa quos
-					consequuntur asperiores!
-				</p>
-				<img src="/img/hero-img.png/" alt="" />
-
-				<div>
-					<img src="/img/hero-img.png/" alt="" />
-					<div>
-						<h5>
-							Lorem ipsum dolor sit amet consectetur adipisicing
-							elit. Soluta officiis mollitia odio?
-						</h5>
-						<p>
-							Lorem ipsum dolor sit amet consectetur, adipisicing
-							elit. Repudiandae porro omnis eaque quos dolores
-							aperiam maiores? Ipsum labore voluptate minus
-							corporis excepturi, nulla perspiciatis nemo est ab,
-							nostrum reprehenderit consequatur? Asperiores quae
-							voluptates, delectus dolorum aut quos, ea aliquid
-							voluptas velit culpa quia voluptatum porro maiores
-							ab modi voluptatem, ipsam necessitatibus minima
-							deserunt! Animi commodi et optio voluptas eaque nam.
-						</p>
-					</div>
-				</div>
+				<Text
+					dangerouslySetInnerHTML={{
+						__html: theContent.html ?? theContent,
+					}}
+				></Text>
 				{short ? (
 					<ReadMoreContainer>
-						<Link href="/blog/something">
+						<Link href={`/blog/${data["Slug"]}`}>
 							<a href="">
 								<ReadMore>Read More...</ReadMore>
 							</a>
@@ -111,29 +99,77 @@ const DateInfo = styled.p`
 	font-size: 0.8rem;
 `
 
+const Text = styled.div`
+	* + * {
+		margin-top: 1rem;
+	}
+
+	& > img,
+	& > video,
+	& > source {
+		margin: 4rem 0;
+	}
+
+	img,
+	video,
+	source {
+		width: 100%;
+		max-height: 70vh;
+		object-fit: contain;
+		margin: 1rem 0;
+	}
+
+	ul {
+		padding: 1rem;
+	}
+
+	blockquote {
+		padding: 1rem;
+		background: rgba(0, 0, 0, 0.1);
+
+		position: relative;
+		&::before {
+			content: "";
+
+			position: absolute;
+			top: 0;
+			left: 0;
+
+			width: 3px;
+			height: 100%;
+
+			background: var(--indigo);
+		}
+
+		line-height: 2;
+	}
+
+
+
+	pre,
+	code {
+		background: rgba(0, 0, 0, 0.05);
+		outline: 1px solid rgba(0, 0, 0, 0.1);
+		padding: 0.25rem;
+	}
+
+	pre > code {
+		background: none;
+		outline: none;
+		padding: none;
+	}
+`
+
 const BlogContents = styled.div`
 	background: #ede0c7;
 	color: var(--text-opaque);
 
 	padding: 1rem;
-
-	* + * {
-		margin-top: 1rem;
-	}
-
-	& > img {
-		margin: 4rem 0;
-	}
-
-	img {
-		width: 100%;
-		max-height: 70vh;
-		object-fit: contain;
-	}
 `
 
 const AllBlogsContainer = styled.div`
 	width: 100%;
+	padding-top: 2rem;
 	a {
 		text-decoration: none;
 	}
@@ -198,27 +234,48 @@ const BlogContainer = styled.div`
 	@media (min-width: 1000px) {
 		max-width: 60%;
 
-		${BlogContents} {
+		${Text} {
 			padding: 2rem;
 
-			& > div:not(${AllBlogsContainer}) {
-				& > * + * {
-					margin-left: 2rem;
+			p {
+				*:first-child:not(:last-child) {
+					margin-top: 4rem;
 				}
-				img {
+				*:last-child:not(:first-child) {
+					margin-top: 4rem;
+				}
+				img,
+				video {
 					width: 50%;
 					margin-top: 0;
 					margin-bottom: 0;
 				}
+
+				img + *,
+				video + * {
+					margin-left: 1rem;
+				}
+				* + img,
+				* + video {
+					margin-left: 1rem;
+				}
+
+				span {
+					margin-top: 0;
+					font-size: calc(0.5vw + 0.5vh + 0.25vmin);
+					text-align: center;
+				}
+
 				display: flex;
 				align-items: center;
 				width: 100%;
 			}
+		}
+		${AllBlogsContainer} {
+			padding: 1rem 2rem;
 
-			& > ${AllBlogsContainer} {
-				img {
-					width: auto;
-				}
+			img {
+				width: auto;
 			}
 		}
 	}

@@ -8,7 +8,7 @@ import Router from "next/router"
 import DropdownLink from "./DropdownLink"
 import makeRealURI from "../helpers/makeRealURI"
 
-import data from "../helpers/data.preval"
+import data from "../helpers/nav.preval"
 
 const { gameData } = data
 
@@ -20,7 +20,7 @@ export default function NavigationBar() {
 	const [dropdownOpen, setDropdownOpen] = useState(false)
 	const [hamburgerOpen, setHamburgerOpen] = useState(false)
 
-	const [transparent, setTransparent] = useState(false)
+	const [transparent, setTransparent] = useState(true)
 
 	const [fixed, setFixed] = useState(null)
 
@@ -130,7 +130,7 @@ export default function NavigationBar() {
 			className={sliding ? "sliding" : null}
 			overflow={overflow}
 		>
-			<Link href="/#">
+			<Link href="/">
 				<a className="home-img-link" onClick={handleLogoClick}>
 					<img
 						src="/img/logo/logo-horizontal.png"
@@ -251,6 +251,7 @@ const Menu = styled.nav`
 		width: 100%;
 		li {
 			list-style: none;
+			position: relative;
 
 			& > a,
 			button {
@@ -376,7 +377,7 @@ const NavigationContainer = styled.header`
 		${Menu} {
 			transition: none;
 
-			position: static;
+			position: relative;
 			display: inline-block;
 			width: auto;
 			height: auto;
@@ -401,11 +402,12 @@ const NavigationContainer = styled.header`
 		}
 
 		${Dropdown} {
-			width: 30vw;
+			min-width: 30vw;
 
 			position: absolute;
-			top: 100%;
-			transform: translateX(calc(-100% + (30vw / 5)));
+			top: calc(3.5rem + 1px);
+			right: 0;
+			transform: translateX(0.5rem);
 
 			transition: max-height 0.4s ease-in;
 
@@ -432,7 +434,7 @@ const NavigationContainer = styled.header`
 			::before {
 				content: "";
 				position: absolute;
-				top: 0;
+				top: 1px;
 				right: 0;
 
 				transform: translateY(-100%)

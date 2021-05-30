@@ -2,10 +2,13 @@ import preval from "next-plugin-preval"
 import useQuery from "../hooks/useQuery"
 
 async function getData() {
-	const allGames = await useQuery("games")
+	let collage = {}
+	try {
+		collage = await useQuery("custom-collage")
+	} catch {}
 
 	return {
-		gameData: allGames,
+		collageData: collage,
 	}
 }
 

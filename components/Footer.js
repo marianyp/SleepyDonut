@@ -1,32 +1,27 @@
 import styled from "styled-components"
+import data from "../helpers/footer.preval"
+import { BORING_ICON_ENUM } from "../helpers/icons"
 
+const { footerData } = data
 export default function Footer() {
 	return (
 		<FooterContainer>
 			<span>SleepyDonut &#169; {new Date().getFullYear()}</span>
 
 			<FooterSocials>
-				<Social href="#">
-					<img
-						src="/img/icons/icon-footer-discord.svg"
-						alt="discord"
-					/>
-				</Social>
-				<Social href="#">
-					<img
-						src="/img/icons/icon-footer-twitter.svg"
-						alt="twitter"
-					/>
-				</Social>
-				<Social href="#">
-					<img
-						src="/img/icons/icon-footer-twitch.svg"
-						alt="twitch"
-					/>
-				</Social>
-				<Social href="#">
-					<img src="/img/icons/icon-footer-email.svg" alt="email" />
-				</Social>
+				{!footerData
+					? null
+					: footerData["Socials"].map((link, key) => (
+							<Social href={link["Link"]} key={key}>
+								<img
+									src={
+										BORING_ICON_ENUM[
+											link["Icon"].toUpperCase()
+										]
+									}
+								/>
+							</Social>
+					  ))}
 			</FooterSocials>
 		</FooterContainer>
 	)
@@ -53,12 +48,12 @@ const Social = styled.a`
 	display: flex;
 
 	:hover {
-        img {
-            opacity: 0.5;
-        }
+		img {
+			opacity: 0.5;
+		}
 
 		&:after {
-			opacity: 1.5;
+			opacity: 1;
 		}
 	}
 
@@ -76,9 +71,12 @@ const Social = styled.a`
 			width: 1px;
 
 			background: white;
+			pointer-events: none;
 		}
 	}
 	img {
 		display: flex;
+		width: 0.95rem;
+		height: 0.95rem;
 	}
 `

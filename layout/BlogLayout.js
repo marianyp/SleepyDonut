@@ -1,5 +1,9 @@
 import React from "react"
 import styled, { createGlobalStyle } from "styled-components"
+import { collageData } from "../helpers/collage.preval"
+import makeRealURI from "../helpers/makeRealURI"
+
+const collage = collageData || {}
 
 export default function BlogLayout({ children, className }) {
 	return (
@@ -7,7 +11,9 @@ export default function BlogLayout({ children, className }) {
 			<GlobalStyle />
 			<PageContainer className={className}>
 				<Content>{children}</Content>
-				<OverlayContainer></OverlayContainer>
+				<OverlayContainer
+					collage={makeRealURI(collage["CustomCollage"]?.url)}
+				></OverlayContainer>
 				<DonutBackground />
 			</PageContainer>
 		</>
@@ -44,7 +50,10 @@ const OverlayContainer = styled.div`
 
 	position: absolute;
 
-	background-image: linear-gradient(rgba(237, 131, 131, 0.69), transparent), url("/img/collage.png");
+	background-image: ${(
+		props,
+	) => `linear-gradient(rgba(237, 131, 131, 0.69), transparent),
+		url(${props.collage})`};
 	background-size: 100% 10%, 100%;
 	background-repeat: no-repeat, repeat-y;
 	background-position: top;

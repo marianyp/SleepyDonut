@@ -4,43 +4,33 @@ import { BORING_ICON_ENUM } from "../helpers/icons"
 import makeRealURI from "../helpers/makeRealURI"
 import MemberAvatar from "./MemberAvatar"
 
-export default function GameContributer({ data, size }) {
+export default function GameContributer({ data, size, margin, row }) {
+	if (row === undefined) row = false
 	return (
-		<ContributerContainer>
+		<ContributerContainer row={row} margin={margin}>
 			<MemberAvatar src={makeRealURI(data["Avatar"]?.url)} size={size} />
-			<Name>{data["Name"] ?? null}</Name>
-			<Role>{data["Role"] ?? null}</Role>
-			<SocialContainer>
-				{data["MemberSocials"]?.map((social, index) => (
-					<Social key={index}>
-						<a href={social["Link"]} target="_blank">
-							<img
-								src={BORING_ICON_ENUM[social["Icon"].toUpperCase()]}
-							/>
-						</a>
-					</Social>
-				))}
-			</SocialContainer>
+			<Seperator>
+				<Name>{data["Name"] ?? null}</Name>
+				<Role>{data["Role"] ?? null}</Role>
+				<SocialContainer>
+					{data["MemberSocials"]?.map((social, index) => (
+						<Social key={index}>
+							<a href={social["Link"]} target="_blank">
+								<img
+									src={
+										BORING_ICON_ENUM[
+											social["Icon"].toUpperCase()
+										]
+									}
+								/>
+							</a>
+						</Social>
+					))}
+				</SocialContainer>
+			</Seperator>
 		</ContributerContainer>
 	)
 }
-
-const ContributerContainer = styled.div`
-	& + & {
-		margin-top: 6rem;
-	}
-
-	& > * + * {
-		margin-top: 0.5rem;
-	}
-
-	@media (min-width: 1000px) {
-		& + & {
-			margin-top: 0;
-			margin-left: 7rem;
-		}
-	}
-`
 
 const Name = styled.h6`
 	text-transform: uppercase;
@@ -79,4 +69,48 @@ const Social = styled.div`
 const SocialContainer = styled.div`
 	display: flex;
 	justify-content: center;
+`
+
+const Seperator = styled.div`
+	& > * + * {
+		margin-top: 0.5rem;
+	}
+`
+
+const ContributerContainer = styled.div`
+	scroll-snap-align: start;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	${Seperator} {
+		& > * {
+			margin-top: 0.35rem;
+		}
+	}
+
+	& + & {
+		margin-top: 2rem;
+	}
+
+	@media (min-width: 1000px) {
+		flex-direction: ${(props) => (props.row ? "row" : "column")};
+		${Name}, ${Role} {
+			text-align: ${(props) => (props.row ? "left" : "center")};
+		}
+
+		${SocialContainer} {
+			justify-content: ${(props) => (props.row ? "left" : "center")};
+		}
+
+		& + & {
+			margin-top: 0;
+			margin-left: ${(props) => props.margin ?? "7rem"};
+		}
+
+		& > div {
+			margin-left: 2rem;
+		}
+	}
 `
