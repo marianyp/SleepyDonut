@@ -14,7 +14,7 @@ export default function Blogs({ blogsData }) {
 					Blog
 				</StyledPill>
 
-				{!blogsData.length ? null : blogsData.map((blog, key) => <SingularBlogPost data={blog} short={true} key={key} />)}
+				{!blogsData.length ? null : blogsData?.map((blog, key) => <SingularBlogPost data={blog} short={true} key={key} />)}
 			</BlogLayout>
 		</>
 	)

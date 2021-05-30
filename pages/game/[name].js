@@ -90,11 +90,11 @@ export async function getStaticPaths() {
 	let possibleSlugs = []
 	try {
 		const games = await useQuery("games")
-		possibleSlugs = games.map((game) => game["Slug"])
+		possibleSlugs = games?.map((game) => game["Slug"])
 	} catch {}
 
 	return {
-		paths: possibleSlugs.map((slug) => ({ params: { name: slug } })),
+		paths: possibleSlugs?.map((slug) => ({ params: { name: slug } })),
 		fallback: false,
 	}
 }

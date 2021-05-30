@@ -11,7 +11,7 @@ export default function Footer() {
 			<FooterSocials>
 				{!footerData
 					? null
-					: footerData["Socials"].map((link, key) => (
+					: footerData["Socials"]?.map((link, key) => (
 							<Social href={link["Link"]} key={key}>
 								<img
 									src={

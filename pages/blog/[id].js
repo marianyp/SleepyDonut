@@ -31,11 +31,11 @@ export async function getStaticPaths() {
 	let possibleSlugs = []
 	try {
 		const blogs = await useQuery("blogs")
-		possibleSlugs = blogs.map((blog) => blog["Slug"])
+		possibleSlugs = blogs?.map((blog) => blog["Slug"])
 	} catch {}
 
 	return {
-		paths: possibleSlugs.map((slug) => ({ params: { id: slug } })),
+		paths: possibleSlugs?.map((slug) => ({ params: { id: slug } })),
 		fallback: false,
 	}
 }
