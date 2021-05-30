@@ -15,10 +15,6 @@
     "Title": {
       "type": "string"
     },
-    "PublishDate": {
-      "type": "date",
-      "required": true
-    },
     "Content": {
       "type": "richtext",
       "required": true

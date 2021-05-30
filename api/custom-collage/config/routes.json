@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/custom-collage",
+      "handler": "custom-collage.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/custom-collage",
+      "handler": "custom-collage.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/custom-collage",
+      "handler": "custom-collage.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
