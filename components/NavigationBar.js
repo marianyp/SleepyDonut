@@ -150,7 +150,7 @@ export default function NavigationBar() {
 			<Menu hamburgerOpen={hamburgerOpen}>
 				<ul>
 					<li>
-						<button onClick={handleDropdownClick}>
+						<button onClick={!Boolean(gameData?.length) ?? handleDropdownClick}>
 							<a>
 								Games <i></i>
 							</a>
