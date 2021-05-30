@@ -10,15 +10,13 @@ import useQuery from "../../hooks/useQuery"
 import makeRealURI from "../../helpers/makeRealURI"
 
 export default function Game({ gameData }) {
-	const heroObserverRef = useHero()
-
 	return (
 		<>
 			<GlobalStyle />
 
 			<PageContainer>
 				<GameHero>
-					<SplashImageContainer ref={heroObserverRef}>
+					<SplashImageContainer>
 						<SplashImage
 							src={makeRealURI(gameData["BannerImage"]?.url)}
 						/>

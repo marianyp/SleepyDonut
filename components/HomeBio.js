@@ -14,7 +14,7 @@ export default function HomeBio({ data }) {
 				<p>{homeData["Biography"] ?? null}</p>
 				<Socials>
 					{ownerData["MemberSocials"]?.map((social, index) => (
-						<a href="#" key={index}>
+						<a href={social["Link"] ?? null} key={index}>
 							<img
 								src={
 									COLORED_ICON_ENUM[

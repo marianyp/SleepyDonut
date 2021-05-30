@@ -58,14 +58,11 @@ const PlatformContainer = styled.div`
 const StyledLink = styled.a`
 	scroll-snap-align: start;
 	display: flex;
+	justify-content: center;
 
 	& > * {
 		:not(:last-child) {
 			margin-right: 1rem;
-		}
-
-		:last-child {
-			margin-left: auto;
 		}
 	}
 
@@ -97,6 +94,15 @@ const StyledLink = styled.a`
 			height: 2px;
 
 			background: rgba(0, 0, 0, 0.08);
+		}
+	}
+
+	@media (min-width: 1000px) {
+		justify-content: flex-start;
+		& > * {
+			:last-child {
+				margin-left: auto;
+			}
 		}
 	}
 `

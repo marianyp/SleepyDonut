@@ -14,7 +14,13 @@ export default function Blogs({ blogsData }) {
 					Blog
 				</StyledPill>
 
-				{!blogsData.length ? null : blogsData?.map((blog, key) => <SingularBlogPost data={blog} short={true} key={key} />)}
+				{!blogsData.length ? (
+					<NoPosts>No posts yet! Stay tuned..</NoPosts>
+				) : (
+					blogsData?.map((blog, key) => (
+						<SingularBlogPost data={blog} short={true} key={key} />
+					))
+				)}
 			</BlogLayout>
 		</>
 	)
@@ -26,7 +32,6 @@ export async function getStaticProps() {
 		blogs = await useQuery("blogs")
 	} catch (err) {}
 
-	
 	return {
 		props: { blogsData: blogs },
 	}
@@ -34,4 +39,25 @@ export async function getStaticProps() {
 
 const StyledPill = styled(Pill)`
 	transform: translateX(calc(50vw - 50%));
+`
+const NoPosts = styled.div`
+	width: 90vw;
+	height: 60vh;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	margin: 2rem auto;
+
+	font-weight: bold;
+
+	background: #ede0c7;
+	color: var(--text-opaque);
+	font-size: 1.45rem;
+
+	@media(min-width: 1000px) {
+		width: 50vw;
+		height: 40vh;
+	}
 `

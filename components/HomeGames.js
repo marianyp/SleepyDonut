@@ -34,7 +34,7 @@ const GamesContainer = styled.div`
 
 	max-width: 700px;
 	@media (min-width: 900px) {
-		display: ${(props) => (props.gameCount >= 1 ? "block" : "grid")};
+		display: ${(props) => (props.gameCount <= 1 ? "block" : "grid")};
 		grid-gap: 4px;
 		grid-template-columns: ${(props) =>
 			props.gameCount <= 2

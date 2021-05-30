@@ -96,6 +96,18 @@ const Hero = styled.main`
 	flex-direction: column;
 `
 
+const HeroImg = styled.img`
+	animation: pop 1s ease;
+	@keyframes pop {
+		from {
+			transform: scale(0);
+		}
+		to {
+			transform: scale(1);
+		}
+	}
+`
+
 const HeroFeature = styled.div`
 	display: flex;
 	justify-content: center;
@@ -127,13 +139,13 @@ const HeroFeature = styled.div`
 
 		box-shadow: 0 3px 6px rgba(148, 82, 82, 0.32);
 	}
-`
-
-const HeroImg = styled.img`
-	animation: pop 1s ease;
-	@keyframes pop {
-		from {transform: scale(0)}
-		to {transform: scale(1)}
+	@media (min-width: 1000px) {
+		max-width: 45vw;
+		font-size: max(1vw, 1rem);
+		
+		img {
+			width: 25vw;
+		}
 	}
 `
 
@@ -315,7 +327,7 @@ const Footing = styled.section`
 			height: 100%;
 
 			background-image: url("/img/waves.svg");
-			background-size: contain;
+			background-size: 100vh;
 			background-repeat: no-repeat;
 			background-position: 0% 100%;
 		}

@@ -54,7 +54,7 @@ export default function NavigationBar() {
 		navigationCheck(willBeFixed, true)
 	})
 
-	const dynamicFixedRoutes = ["/", "/blog/"] // Routes which should always be fixed
+	const dynamicFixedRoutes = ["/", "/blog/", "/game/"] // Routes which should always be fixed
 
 	useEffect(() => {
 		const willBeFixed = Boolean(
@@ -64,6 +64,9 @@ export default function NavigationBar() {
 		)
 
 		navigationCheck(willBeFixed)
+		if (router.pathname === "/") {
+			setTransparent(heroVisible)
+		}
 	}, [heroVisible])
 
 	useEffect(() => {
@@ -92,7 +95,7 @@ export default function NavigationBar() {
 
 	const navigationCheck = (willBeFixed, soft) => {
 		if (router.pathname === "/") {
-			setTransparent(heroVisible)
+			setTransparent(true)
 			setFixed(true)
 		} else if (willBeFixed) {
 			setTransparent(false)
@@ -116,6 +119,7 @@ export default function NavigationBar() {
 	}
 	const handleLogoClick = (e) => {
 		setHamburgerOpen(false)
+		scrollTo(0, 0)
 	}
 
 	const handleNavigationClick = (e) => {
@@ -150,7 +154,11 @@ export default function NavigationBar() {
 			<Menu hamburgerOpen={hamburgerOpen}>
 				<ul>
 					<li>
-						<button onClick={!Boolean(gameData?.length) ?? handleDropdownClick}>
+						<button
+							onClick={
+								gameData?.length ? handleDropdownClick : null
+							}
+						>
 							<a>
 								Games <i></i>
 							</a>
