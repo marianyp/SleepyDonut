@@ -156,7 +156,7 @@ export default function NavigationBar() {
 					<li>
 						<button
 							onClick={
-								gameData?.filter(g => g["ShowInNav"])?.length ? handleDropdownClick : null
+								gameData?.filter(g => g["ShowInNav"] || g["ShowInNav"] === null)?.length ? handleDropdownClick : null
 							}
 						>
 							<a>
