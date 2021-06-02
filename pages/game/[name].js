@@ -73,8 +73,8 @@ export default function Game({ gameData }) {
 					<Pill color="red">Contributers</Pill>
 					<CustomFooting>
 						<ContributersList>
-							{gameData["TeamMembers"]?.map((c, index) => (
-								<GameContributer data={c} key={index} size={gameData["TeamMembers"].length > 4 ? '12vw' : null} margin={gameData["TeamMembers"].length > 4 ? '4rem' : null} />
+							{gameData["Contributers"]?.map((c, index) => (
+								<GameContributer data={c} key={index} size={gameData["Contributers"].length > 4 ? '12vw' : null} margin={gameData["Contributers"].length > 4 ? '4rem' : null} />
 							))}
 						</ContributersList>
 					</CustomFooting>

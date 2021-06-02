@@ -156,7 +156,7 @@ export default function NavigationBar() {
 					<li>
 						<button
 							onClick={
-								gameData?.length ? handleDropdownClick : null
+								gameData?.filter(g => g["ShowInNav"])?.length ? handleDropdownClick : null
 							}
 						>
 							<a>
@@ -173,7 +173,7 @@ export default function NavigationBar() {
 								dropdownOpen={dropdownOpen}
 								transparent={transparent}
 							>
-								{gameData?.map((game, key) => (
+								{gameData?.filter(g => g["ShowInNav"])?.map((game, key) => (
 									<StyledDropdownLink
 										platforms={[
 											game["Platform"]["PC"]

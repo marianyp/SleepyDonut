@@ -8,12 +8,12 @@ export default function GameContributer({ data, size, margin, row }) {
 	if (row === undefined) row = false
 	return (
 		<ContributerContainer row={row} margin={margin}>
-			<MemberAvatar src={makeRealURI(data["Avatar"]?.url)} size={size} />
+			<MemberAvatar src={makeRealURI(data?.team_member["Avatar"]?.url)} size={size} />
 			<Seperator>
-				<Name>{data["Name"] ?? null}</Name>
-				<Role>{data["Role"] ?? null}</Role>
+				<Name>{data?.team_member["Name"] ?? null}</Name>
+				<Role>{data?.team_member["Role"] ?? null}</Role>
 				<SocialContainer>
-					{data["MemberSocials"]?.map((social, index) => (
+					{data?.team_member["MemberSocials"]?.map((social, index) => (
 						<Social key={index}>
 							<a href={social["Link"]} target="_blank">
 								<img

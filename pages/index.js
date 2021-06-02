@@ -8,7 +8,7 @@ import makeRealURI from "../helpers/makeRealURI"
 import useHero from "../hooks/useHero"
 import useQuery from "../hooks/useQuery"
 
-export default function Home({ homeData, ownerData, gamesData }) {
+export default function Home({ homeData, ownerData }) {
 	const heroObserverRef = useHero()
 
 	return (
@@ -27,7 +27,7 @@ export default function Home({ homeData, ownerData, gamesData }) {
 			</Hero>
 
 			<GamesSection>
-				<HomeGames data={{ gamesData }} />
+				<HomeGames data={{ gamesData: homeData["games"] }} />
 				<GameFeature>
 					<img
 						src={makeRealURI(homeData["GamesFeature"]?.url) ?? null}
@@ -61,18 +61,15 @@ export default function Home({ homeData, ownerData, gamesData }) {
 export async function getStaticProps() {
 	let home = {}
 	let owner = {}
-	let games = []
 	try {
 		home = await useQuery("home")
 
 		const members = await useQuery("team-members")
 		owner = await members.find((m) => m["Owner"])
-
-		games = await useQuery("games")
 	} catch (err) {}
 
 	return {
-		props: { homeData: home, ownerData: owner, gamesData: games },
+		props: { homeData: home, ownerData: owner },
 	}
 }
 
